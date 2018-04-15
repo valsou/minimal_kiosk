@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900&amp;subset=latin-ext" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:100,200,300,400,500,600,700,800,900&amp;subset=latin-ext" rel="stylesheet">
 <style>
 html, body {
     margin: 0;
@@ -20,26 +20,27 @@ body {
 	justify-content: flex-start;
 	align-items: stretch;
 	align-content: stretch;
-    font-family: "Lato", sans-serif;
+    font-family: "Fira Sans", sans-serif;
 }
 
 #date {
-    font-weight: bold;
+    font-weight: 500;
     width: 75.8%;
     font-size: 5vw;
-    align-self: stretch;
     background-color: black;
     color: white;
+    text-align: center;
 }
 
 #time {
-    font-size: 5.4vw;
+    font-size: 6.5vw;
+    font-weight: 400;
     width: 24.2%;
-    align-self: stretch;
+    color: white;
 }
 
 #time #seconds {
-    font-weight: 300;
+    font-weight: 100;
 }
 
 #main {
@@ -54,6 +55,7 @@ body {
 }
 
 #top {
+    background-color: black;
     display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -65,7 +67,12 @@ body {
 
 #meteo {
     width: 24.2%;
-    background-color: white;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: center;
+	align-content: stretch;
 }
 
 #slide {
@@ -79,15 +86,17 @@ body {
     overflow: hidden;
 }
 
-.weatherCard h1 {
-        margin-bottom: 0;
-        margin-top: 5px;
-        padding-left: 5px;
-        color: #11AAD3;
+.weatherCard {
+    width: 96%;
+    overflow: hidden;
 }
 
-#tomorrowWeather h1 {
-    color: black;
+.weatherCard h1 {
+        font-size: 1.8vw;
+        font-weight: 400;
+        margin-bottom: 0;
+        margin-top: 8px;
+        color: #00ffcc;
 }
 
 #tomorrowAMWeather,
@@ -96,7 +105,7 @@ body {
 }
 
 #tomorrowAMWeather {
-    border-right: 2px solid #E2F6F7;
+    border-right: 1px solid #e6e6e6;
 }
 
 #tomorrowWeather .wrapWeatherSpecial {
@@ -107,6 +116,8 @@ body {
 	justify-content: center;
 	align-items: stretch;
 	align-content: stretch;
+    overflow: hidden;
+    border-radius: 10px;
 }
 
 #tomorrowWeather .weatherSpecial {
@@ -134,7 +145,8 @@ body {
 }
 
 #tomorrowWeather .period {
-    font-size: 1.2vw;
+    font-size: 2vw;
+    font-weight: 500;
     padding-bottom: 10px;
 }
 
@@ -145,46 +157,45 @@ body {
 	justify-content: space-around;
 	align-items: stretch;
 	align-content: stretch;
-    font-size: 1.7vw;
-    font-weight: 700;
+    font-size: 2vw;
+    font-weight: 600;
 }
 
 #tomorrowWeather .tempMin {
-    color: #11AAD3;
-}
-
-#tomorrowWeather .tempText {
-    font-size: 1vw;
-    padding-top: 10px;
+    color: #b3b3b3;
 }
 
 .weatherCard .weatherTop  {
-    background-color: #11AAD3;
-    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: white;
     display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: center;
 	align-items: center;
 	align-content: stretch;
-    padding: 10px;
+    padding: 5px;
 }
 
 .weatherCard .weatherTop .temp {
-    font-size: 4.5vw;
-    font-weight: 500;
+    font-size: 5.4vw;
+    font-weight: 400;
 }
 
 .weatherCard .weatherTop .tempText {
     font-size: 1.4vw;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 .weatherCard .weatherTop .tempIcon {
-    width: 6vw;
+    width: 7.5vw;
 }
 
 .weatherCard .weatherBottom {
+    border-top: 1px solid #e6e6e6;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
     background-color: white;
     color: black;
     display: flex;
@@ -193,20 +204,20 @@ body {
 	justify-content: space-around;
 	align-items: stretch;
 	align-content: stretch;
-    padding: 10px;
+    padding: 5px;
 }
 
 .weatherCard .weatherBottom img {
-    width: 1vw;
-    padding-right: 10px;
+    height: 2.8vh;
+    padding-right: 5px;
 }
 
 .weatherCard .weatherBottom .more {
     display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
+	justify-content: center;
+	align-items: stretch;
 	align-content: stretch;
     font-size: 1.4vw;
     font-weight: 400;
@@ -289,7 +300,6 @@ body {
                                 <div class="tempMax"></div>
                             </div>
                         </div>
-                        <div class="tempText"></div>
                     </div>
 
                     <div id="tomorrowPMWeather" class="weatherSpecial">
@@ -301,7 +311,6 @@ body {
                                 <div class="tempMax"></div>
                             </div>
                         </div>
-                        <div class="tempText"></div>
                     </div>
                 </div>
 
@@ -313,17 +322,38 @@ body {
 
 
 <script>
+class Weather {
+	constructor(from, to, temp, tempMin, tempMax, windSpeed, humidity, rain, symbol, tempText) {
+		this.from = from;
+		this.to = to;
+		this.temp = temp;
+		this.tempMin = tempMin;
+		this.tempMax = tempMax;
+		this.windSpeed = windSpeed;
+        this.humidity = humidity;
+		this.rain = rain;
+		this.symbol = symbol;
+		this.tempText = tempText;
+	}
+}
+
+const SLIDE_URL = 'https://docs.google.com/presentation/d/e/2PACX-1vQoELt5p3el0Z4v0TOCFjnJCucY8PEZGpSgtZprx8zM1eFt-SpVmP3XuBGIufALVohhtb2MXg7KV3l2/embed?start=true&loop=true&delayms=3000&rm=minimal';
+
+var currentWeather = new Weather();
+var nextHourWeather = new Weather();
+var tomorrowAMWeather = new Weather();
+var tomorrowPMWeather = new Weather();
 
 function translateDate(date, lang = "fr") {
 
     var jours = {"fr": {
-        0: "Dimanche",
-        1: "Lundi",
-        2: "Mardi",
-        3: "Mercredi",
-        4: "Jeudi",
-        5: "Vendredi",
-        6: "Samedi"
+        0: "Dim.",
+        1: "Lun.",
+        2: "Mar.",
+        3: "Mer.",
+        4: "Jeu.",
+        5: "Ven.",
+        6: "Sam."
     }};
 
     var mois = {"fr": {
@@ -405,7 +435,6 @@ function speedMstoKmh(ms) {
 	return kmh;
 }
 
-
 function getDateTime() {
 	// on recupere la date
     var date = new Date();
@@ -413,61 +442,11 @@ function getDateTime() {
 
     var time = date.toLocaleTimeString("fr-FR"); // hh:mm:ss
     var timeSplit = time.split(":");
-	document.getElementById("hourMinutes").innerHTML = timeSplit[0]+":"+timeSplit[1];
-    document.getElementById("seconds").innerHTML = ":"+timeSplit[2];
+	document.getElementById("hourMinutes").innerHTML = timeSplit[0]+":"+timeSplit[1]+":";
+    document.getElementById("seconds").innerHTML = timeSplit[2];
 
     setTimeout(getDateTime, 1000); // mise à jour du contenu "timer" toutes les secondes
 }
-
-getDateTime();
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var request = new XMLHttpRequest();
-// //
-// request.open('GET', 'https://api.openweathermap.org/data/2.5/weather?lat=45.179055&lon=5.731420&units=metric&lang=fr&appid=43b1606a5f9ea838c98f1e6dd19a1dc5', true);
-// request.onload = function () {
-
-//   // Begin accessing JSON data here
-//   var data = JSON.parse(this.response);
-
-//   if (request.status >= 200 && request.status < 400) {
-// 	var name = data.name;
-// 	var temp = Math.round(data.main.temp);
-// 	var tempMin = data.main.temp_min;
-// 	var tempMax = data.main.temp_max;
-// 	var windSpeed_ms = data.wind.speed;
-// 	var windSpeed_kmh = Math.round(3.6 * windSpeed_ms);
-// 	var type = data.weather[0].description;
-// 	var icon = data.weather[0].icon;
-
-//     console.log(name);
-// 	console.log(temp+"°c");
-// 	console.log(tempMin+"°c min");
-// 	console.log(tempMax+"°c max");
-// 	console.log(windSpeed_kmh+" km/h");
-// 	console.log(type);
-// 	console.log(icon);
-// 	console.log(data);
-
-// 	document.getElementById('temp').innerHTML = temp+"°c";
-// 	document.getElementById('tempIcon').src="icons/"+icon+".svg";
-//   } else {
-//     console.log('error');
-//   }
-// };
-
-// request.send();
 
 function setTimeTo(date, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) {
 	if (hours != 0) {
@@ -480,50 +459,45 @@ function setTimeTo(date, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) 
 	return date;
 }
 
-
-
-class Weather {
-	constructor(from, to, temp, tempMin, tempMax, windSpeed, humidity, rain, symbol, tempText) {
-		this.from = from;
-		this.to = to;
-		this.temp = temp;
-		this.tempMin = tempMin;
-		this.tempMax = tempMax;
-		this.windSpeed = windSpeed;
-        this.humidity = humidity;
-		this.rain = rain;
-		this.symbol = symbol;
-		this.tempText = tempText;
-	}
-}
-
-function setWeatherIcon(child, symbol) {
+function setWeatherIcon(child, sym) {
     var date = new Date();
-    var lever = setTimeTo(new Date(), 6, 30, 0, 0);
-    var coucher = setTimeTo(new Date(), 17, 30, 0, 0);
-    var isNight = 0;
+    var lever = setTimeTo(new Date(), 6, 30, 0, 0); // début journée = 6h30
+    var coucher = setTimeTo(new Date(), 17, 30, 0, 0); // fin journée = 17h30
+    var symbol = ("0" + sym).slice(-2);
+    var isNight = "";
+
+    // Icons without day/night alternatives
+    var simpleIcons = ["4","9","10","11","12","13","14","15","22","23","30","31","32","33","34","46","47","48","49","50"];
 
     if (date.getTime() <= lever.getTime() || date.getTime() >= coucher.getTime()) {
-        isNight = 1;
+        isNight = "n";
+    } else {
+        isNight = "d";
     }
 
-    return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "https://api.met.no/weatherapi/weathericon/1.1/?symbol="+symbol+"&is_night="+isNight+"&content_type=image%2Fsvg%2Bxml";
-}
+    if (child == "tomorrowAMWeather" || child == "tomorrowPMWeather") {
+        isNight = "d";
+    }
 
-var currentWeather = new Weather();
-var nextHourWeather = new Weather();
-var tomorrowAMWeather = new Weather();
-var tomorrowPMWeather = new Weather();
+    if (simpleIcons.includes(sym)) {
+        isNight = "";
+    }
+
+    // return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "https://api.met.no/weatherapi/weathericon/1.1/?symbol="+symbol+"&is_night="+isNight+"&content_type=image%2Fsvg%2Bxml";
+    return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "icons/forecast/"+symbol+isNight+".svg";
+}
 
 function refreshMeteo() {
 
     var now = setTimeTo(new Date());
     var afterOneHour = setTimeTo(new Date());
+    var beforeOneHour = setTimeTo(new Date());
     var tomorrow06 = setTimeTo(new Date(), 6); // 06hOO
     var tomorrow12 = setTimeTo(new Date(), 12); // 12h00
     var tomorrow18 = setTimeTo(new Date(), 18); // 18h00
 
     afterOneHour.setUTCHours( now.getUTCHours() + 1);
+    beforeOneHour.setUTCHours( now.getUTCHours() - 1);
     tomorrow06.setUTCDate( now.getUTCDate() + 1);
     tomorrow12.setUTCDate( now.getUTCDate() + 1);
     tomorrow18.setUTCDate( now.getUTCDate() + 1);
@@ -553,8 +527,16 @@ function refreshMeteo() {
     		to[i] = new Date(data[i].to);
 
 
+            // Prévision maintenant
+            if (from[i].getTime() === now.getTime() && to[i].getTime() === now.getTime()) {
+    			weatherData['currentWeather'] = data[i];
+    		}
+
+    		else if (from[i].getTime() === beforeOneHour.getTime() && to[i].getTime() === now.getTime()) {
+    			weatherData['currentWeatherBis'] = data[i];
+    		}
     		// Prévision h+1
-    		if (from[i].getTime() === afterOneHour.getTime() && to[i].getTime() === afterOneHour.getTime()) {
+    		else if (from[i].getTime() === afterOneHour.getTime() && to[i].getTime() === afterOneHour.getTime()) {
     			weatherData['nextHourWeather'] = data[i];
     		}
 
@@ -575,7 +557,7 @@ function refreshMeteo() {
     	}
 
     		//### 1. Récupérer la météo pour l'heure actuelle
-            currentWeather = Object.assign(currentWeather, nextHourWeather);
+            // currentWeather = Object.assign(currentWeather, nextHourWeather);
 
     		//### 2. Récupérer la météo pour l'heure d'après
 
@@ -588,10 +570,19 @@ function refreshMeteo() {
     		nextHourWeather.symbol = weatherData['nextHourWeatherBis'].location.symbol.number;
     		nextHourWeather.tempText = weatherData['nextHourWeatherBis'].location.symbol.id;
 
-            //### Si currentWeather est vide (i.e. premier refresh de la page), on attribue les valeurs de l'heure d'après
-    		if (typeof currentWeather.from == 'undefined' && typeof currentWeather.to == 'undefined') {
-    			currentWeather = Object.assign(currentWeather, nextHourWeather);
-    		}
+            //### 1.
+            if (typeof weatherData['currentWeatherBis'] !== "undefined") {
+                currentWeather.from = weatherData['currentWeatherBis'].from;
+        		currentWeather.to = weatherData['currentWeatherBis'].to;
+        		currentWeather.temp = weatherData['currentWeather'].location.temperature.value;
+        		currentWeather.windSpeed = weatherData['currentWeather'].location.windSpeed.mps;
+                currentWeather.humidity = weatherData['currentWeather'].location.humidity.value;
+        		currentWeather.rain = weatherData['currentWeatherBis'].location.precipitation.value;
+        		currentWeather.symbol = weatherData['currentWeatherBis'].location.symbol.number;
+        		currentWeather.tempText = weatherData['currentWeatherBis'].location.symbol.id;
+            } else {
+                currentWeather = Object.assign(currentWeather, nextHourWeather);
+            }
 
     		//### 3. Récupérer la météo pour demain matin
 
@@ -599,9 +590,7 @@ function refreshMeteo() {
     		tomorrowAMWeather.to = weatherData['tomorrowAMWeather'].to;
     		tomorrowAMWeather.tempMin = weatherData['tomorrowAMWeather'].location.minTemperature.value;
     		tomorrowAMWeather.tempMax = weatherData['tomorrowAMWeather'].location.maxTemperature.value;
-    		tomorrowAMWeather.rain = weatherData['tomorrowAMWeather'].location.precipitation.value;
     		tomorrowAMWeather.symbol = weatherData['tomorrowAMWeather'].location.symbol.number;
-    		tomorrowAMWeather.tempText = weatherData['tomorrowAMWeather'].location.symbol.id;
 
 
     		//### 4. Récupérer la météo pour demain après-midi
@@ -610,31 +599,27 @@ function refreshMeteo() {
     		tomorrowPMWeather.to = weatherData['tomorrowPMWeather'].to;
     		tomorrowPMWeather.tempMin = weatherData['tomorrowPMWeather'].location.minTemperature.value;
     		tomorrowPMWeather.tempMax = weatherData['tomorrowPMWeather'].location.maxTemperature.value;
-    		tomorrowPMWeather.rain = weatherData['tomorrowPMWeather'].location.precipitation.value;
     		tomorrowPMWeather.symbol = weatherData['tomorrowPMWeather'].location.symbol.number;
-    		tomorrowPMWeather.tempText = weatherData['tomorrowPMWeather'].location.symbol.id;
 
         setWeatherIcon("currentWeather", currentWeather.symbol);
     	document.getElementById('currentWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(currentWeather.symbol);
     	document.getElementById('currentWeather').getElementsByClassName('temp')[0].innerHTML = currentWeather.temp+"°";
-    	document.getElementById('currentWeather').getElementsByClassName('rain')[0].innerHTML = Math.round(currentWeather.rain)+" mm";
+    	document.getElementById('currentWeather').getElementsByClassName('rain')[0].innerHTML = currentWeather.rain+" mm";
         document.getElementById('currentWeather').getElementsByClassName('humidity')[0].innerHTML = Math.round(currentWeather.humidity)+"%";
     	document.getElementById('currentWeather').getElementsByClassName('windSpeed')[0].innerHTML = Math.round(speedMstoKmh(currentWeather.windSpeed), 0)+" km/h";
 
         setWeatherIcon("nextHourWeather", nextHourWeather.symbol);
     	document.getElementById('nextHourWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(nextHourWeather.symbol);
     	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = nextHourWeather.temp+"°";
-    	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].innerHTML = Math.round(nextHourWeather.rain)+" mm";
+    	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].innerHTML = nextHourWeather.rain+" mm";
         document.getElementById('nextHourWeather').getElementsByClassName('humidity')[0].innerHTML = Math.round(nextHourWeather.humidity)+"%";
     	document.getElementById('nextHourWeather').getElementsByClassName('windSpeed')[0].innerHTML = Math.round(speedMstoKmh(nextHourWeather.windSpeed), 0)+" km/h";
 
         setWeatherIcon("tomorrowAMWeather", tomorrowAMWeather.symbol);
-    	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(tomorrowAMWeather.symbol);
     	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMin')[0].innerHTML = tomorrowAMWeather.tempMin+"°";
     	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMax')[0].innerHTML = tomorrowAMWeather.tempMax+"°";
 
         setWeatherIcon("tomorrowPMWeather", tomorrowPMWeather.symbol);
-    	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(tomorrowPMWeather.symbol);
     	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMin')[0].innerHTML = tomorrowPMWeather.tempMin+"°";
     	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMax')[0].innerHTML = tomorrowPMWeather.tempMax+"°";
 
@@ -646,14 +631,16 @@ function refreshMeteo() {
     return request.send();
 }
 
-refreshMeteo();
-setInterval("refreshMeteo()", 1800000); // refresh toutes les 30 minutes
-
+//### Google Slide
 function loadSlide() {
-    return document.getElementById("googleSlide").src = "https://docs.google.com/presentation/d/e/2PACX-1vQoELt5p3el0Z4v0TOCFjnJCucY8PEZGpSgtZprx8zM1eFt-SpVmP3XuBGIufALVohhtb2MXg7KV3l2/embed?start=true&loop=true&delayms=3000&rm=minimal";
+    return document.getElementById("googleSlide").src = SLIDE_URL;
 }
 
+//### Appeler les différents éléments de la page.
+getDateTime();
+refreshMeteo();
 loadSlide();
+setInterval("refreshMeteo()", 1800000); // refresh toutes les 30 minutes
 setInterval("loadSlide()", 300000); // refresh toutes les 5 minutes
 
 </script>
