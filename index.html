@@ -25,18 +25,18 @@ body {
 
 #date {
     font-weight: 500;
-    width: 75.8%;
-    font-size: 5vw;
+    width: 75vw;
+    font-size: 5.4vw;
     background-color: black;
     color: white;
     text-align: center;
 }
 
 #time {
-    font-size: 6.5vw;
+    font-size: 7vw;
     font-weight: 400;
-    width: 24.2%;
     color: white;
+    flex: 1 1 auto;
 }
 
 #time #seconds {
@@ -322,6 +322,8 @@ body {
 
 <script src="js/sun.js"></script>
 <script>
+
+
 class Weather {
 	constructor(from, to, temp, tempMin, tempMax, windSpeed, humidity, rain, symbol, tempText) {
 		this.from = from;
@@ -495,13 +497,16 @@ function setWeatherIcon(child, sym, from) {
 
 function refreshMeteo() {
 
-	date = new Date();
+	var date = new Date();
     var now = setTimeTo(new Date(), new Date().getUTCHours());
     var afterOneHour = setTimeTo(new Date(), new Date().getUTCHours());
     var beforeOneHour = setTimeTo(new Date(), new Date().getUTCHours());
-    var tomorrow06 = setTimeTo(new Date(), 6); // 06hOO
-    var tomorrow12 = setTimeTo(new Date(), 12); // 12h00
-    var tomorrow18 = setTimeTo(new Date(), 18); // 18h00
+
+    var offset = Math.abs(date.getTimezoneOffset() / 60);
+ 
+    var tomorrow06 = setTimeTo(new Date(), 6 - offset);
+    var tomorrow12 = setTimeTo(new Date(), 12 - offset);
+    var tomorrow18 = setTimeTo(new Date(), 18 - offset);
 
     afterOneHour.setUTCHours( now.getUTCHours() + 1);
     beforeOneHour.setUTCHours( now.getUTCHours() - 1);
@@ -608,6 +613,8 @@ function refreshMeteo() {
     		tomorrowPMWeather.tempMax = weatherData['tomorrowPMWeather'].location.maxTemperature.value;
     		tomorrowPMWeather.symbol = weatherData['tomorrowPMWeather'].location.symbol.number;
 
+    		console.log(tomorrowAMWeather);
+
         setWeatherIcon("currentWeather", currentWeather.symbol, currentWeather.from);
     	document.getElementById('currentWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(currentWeather.symbol);
     	document.getElementById('currentWeather').getElementsByClassName('temp')[0].innerHTML = currentWeather.temp+"°";
@@ -649,7 +656,6 @@ refreshMeteo();
 loadSlide();
 setInterval("refreshMeteo()", 1800000); // refresh toutes les 30 minutes
 setInterval("loadSlide()", 300000); // refresh toutes les 5 minutes
-
 </script>
 </body>
 </html>
