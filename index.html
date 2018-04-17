@@ -25,7 +25,7 @@ body {
 
 #date {
     font-weight: 500;
-    width: 78.5vw;
+    width: 78.8vw;
     font-size: 5.4vw;
     background-color: black;
     color: white;
@@ -33,7 +33,7 @@ body {
 }
 
 #time {
-    font-size: 6vw;
+    font-size: 5.7vw;
     font-weight: 400;
     color: white;
     flex: 1 1 auto;
@@ -91,6 +91,22 @@ body {
     overflow: hidden;
 }
 
+@media only screen and (device-aspect-ratio: 16/10)
+{
+
+    body {
+        background-color: black;
+    }
+
+    #meteo {
+        width: 22%;
+    }
+
+    #main {
+        flex: 0;
+    }
+}
+
 .weatherCard {
     width: 100%;
     background-color: white;
@@ -108,7 +124,7 @@ body {
 }
 
 .weatherCard h1 {
-    font-size: 1.3vw;
+    font-size: 1.5vw;
     font-weight: 500;
     margin-bottom: 0;
     margin-top: 0;
@@ -169,7 +185,7 @@ body {
 }
 
 #tomorrowWeather .period {
-    font-size: 1.2vw;
+    font-size: 1.4vw;
     padding: 2px 0 2px 5px;
     font-weight: 500;
     background-color: #DBDBDB;
@@ -208,7 +224,7 @@ body {
 }
 
 .todayLine .tempIcon {
-    width: 4vw;
+    height: 4.4vh;
 }
 
 .todayLine .nextTime {
@@ -263,10 +279,11 @@ body {
     background-color: #f5f5f5;
     width: 100%;
     text-align: center;
+    padding: 0.2vw 0;
 }
 
 .weatherCard .weatherTop .tempIcon {
-    width: 7vw;
+    height: 8vh;
 }
 
 .weatherCard .weatherBottom {
@@ -309,6 +326,7 @@ body {
 	justify-content: space-around;
 	align-items: center;
 	align-content: stretch;
+    padding: 0.5vw 0;
 }
 
 
@@ -688,6 +706,7 @@ function refreshMeteo() {
                     scope[retrieve[j].id].temp = data[i].location.temperature.value;
                     scope[retrieve[j].id].windSpeed = data[i].location.windSpeed.mps;
                     scope[retrieve[j].id].humidity = data[i].location.humidity.value;
+
                 }
                 else if (from[i].getTime() === retrieve[j].second.getTime() && to[i].getTime() === retrieve[j].first.getTime()) {
                     scope[retrieve[j].id].from = data[i].from;
@@ -695,6 +714,8 @@ function refreshMeteo() {
                     scope[retrieve[j].id].rain = data[i].location.precipitation.value;
                     scope[retrieve[j].id].symbol = data[i].location.symbol.number;
                     scope[retrieve[j].id].tempText = data[i].location.symbol.id;
+                    console.log(retrieve[j].id);
+                    console.log(data[i].from);
                 }
 
             }
@@ -714,17 +735,17 @@ function refreshMeteo() {
         setWeatherIcon("nextHourWeather", nextHourWeather.symbol, nextHourWeather.from);
     	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(nextHourWeather.temp)+"°";
     	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(nextHourWeather.rain);
-        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = new Date(nextHourWeather.from).getHours();
+        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(nextHourWeather.from).getHours()).slice(-2);
 
         setWeatherIcon("twoHourWeather", twoHourWeather.symbol, twoHourWeather.from);
     	document.getElementById('twoHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(twoHourWeather.temp)+"°";
     	document.getElementById('twoHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(twoHourWeather.rain);
-        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = new Date(twoHourWeather.from).getHours();
+        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(twoHourWeather.from).getHours()).slice(-2);
 
         setWeatherIcon("threeHourWeather", threeHourWeather.symbol, threeHourWeather.from);
     	document.getElementById('threeHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(threeHourWeather.temp)+"°";
     	document.getElementById('threeHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(threeHourWeather.rain);
-        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = new Date(threeHourWeather.from).getHours();
+        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(threeHourWeather.from).getHours()).slice(-2);
 
         setWeatherIcon("tomorrowAMWeather", tomorrowAMWeather.symbol, tomorrowAMWeather.from);
     	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMin')[0].innerHTML = Math.round(tomorrowAMWeather.tempMin)+"°";
