@@ -25,7 +25,7 @@ body {
 
 #date {
     font-weight: 500;
-    width: 75vw;
+    width: 78.5vw;
     font-size: 5.4vw;
     background-color: black;
     color: white;
@@ -33,7 +33,7 @@ body {
 }
 
 #time {
-    font-size: 7vw;
+    font-size: 6vw;
     font-weight: 400;
     color: white;
     flex: 1 1 auto;
@@ -51,6 +51,7 @@ body {
 	justify-content: flex-start;
 	align-items: stretch;
 	align-content: stretch;
+    flex: 1 1 auto;
 }
 
 #top {
@@ -61,7 +62,6 @@ body {
 	justify-content: space-between;
 	align-items: center;
 	align-content: stretch;
-    flex: 1 1 auto;
 }
 
 #meteo {
@@ -71,13 +71,18 @@ body {
 	justify-content: flex-start;
 	align-items: center;
 	align-content: stretch;
-	flex: 1 1 auto;
+    width: 21%;
 }
 
 #slide {
-    width: 75vw;
-    height: 46.825vw;
     overflow: hidden;
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+    flex: 1;
 }
 
 #slide iframe {
@@ -87,16 +92,33 @@ body {
 }
 
 .weatherCard {
-    width: 96%;
+    width: 100%;
+    background-color: white;
     overflow: hidden;
 }
 
+#currentWeather h1 {
+    background-color: #F59300;
+}
+#todayWeather h1 {
+    background-color: #008FCF;
+}
+#tomorrowWeather h1 {
+    background-color: #213D64;
+}
+
 .weatherCard h1 {
-        font-size: 1.8vw;
-        font-weight: 400;
-        margin-bottom: 0;
-        margin-top: 8px;
-        color: #00ffcc;
+    font-size: 1.3vw;
+    font-weight: 500;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 2px 0 2px 5px;
+    color: white;
+}
+
+#todayWeather,
+#tomorrowWeather {
+    margin-top: 1vw;
 }
 
 #tomorrowAMWeather,
@@ -104,12 +126,16 @@ body {
     width: 50%;
 }
 
+#todayWeather .more img {
+    width: 1.4vw;
+    padding-right: 0.3vw;
+}
+
 #tomorrowAMWeather {
     border-right: 1px solid #e6e6e6;
 }
 
 #tomorrowWeather .wrapWeatherSpecial {
-    background-color: white;
     display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -117,7 +143,6 @@ body {
 	align-items: stretch;
 	align-content: stretch;
     overflow: hidden;
-    border-radius: 10px;
 }
 
 #tomorrowWeather .weatherSpecial {
@@ -127,12 +152,11 @@ body {
 	justify-content: flex-start;
 	align-items: stretch;
 	align-content: stretch;
-    padding: 10px;
 }
 
 #tomorrowWeather .specialTomorrow {
     display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: flex-start;
 	align-items: stretch;
@@ -140,34 +164,85 @@ body {
 }
 
 #tomorrowWeather .tempIcon {
-    height: 5vw;
-    padding-right: 10px;
+    height: 4vw;
+    padding: 0.2vw 0;
 }
 
 #tomorrowWeather .period {
-    font-size: 2vw;
+    font-size: 1.2vw;
+    padding: 2px 0 2px 5px;
     font-weight: 500;
-    padding-bottom: 10px;
+    background-color: #DBDBDB;
+    color: #4F4F4F;
 }
 
-#tomorrowWeather .minMax {
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: stretch;
-	align-content: stretch;
-    font-size: 2vw;
-    font-weight: 600;
+#tomorrowWeather .tempMin,
+#tomorrowWeather .tempMax {
+    text-align: center;
+    font-size: 2.4vw;
+    font-weight: 700;
 }
 
 #tomorrowWeather .tempMin {
     color: #b3b3b3;
+    font-weight: 500;
+}
+
+.wrapTodayWeather {
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	align-items: stretch;
+	align-content: stretch;
+}
+
+.todayLine {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-around;
+	align-items: center;
+	align-content: stretch;
+    padding: 0.5vw;
+}
+
+.todayLine .tempIcon {
+    width: 4vw;
+}
+
+.todayLine .nextTime {
+    color: white;
+    font-size: 1.5vw;
+    font-weight: 500;
+    background-color: #0f587a;
+    padding: 0.2vw 0.4vw;
+}
+
+.todayLine .nextTime .value {
+    font-weight: 500;
+    font-size: 1.8vw;
+}
+
+.todayLine .temp {
+    font-size: 2.8vw;
+    font-weight: 500;
+}
+
+.todayLine .rain {
+    font-size: 1.2vw;
+    font-weight: 500;
+}
+
+.todayLine .rain .value {
+    font-size: 1.8vw;
+}
+
+.todayLine.greyed {
+    background-color: #f5f5f5;
 }
 
 .weatherCard .weatherTop  {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     background-color: white;
     display: flex;
 	flex-direction: column;
@@ -175,27 +250,26 @@ body {
 	justify-content: center;
 	align-items: center;
 	align-content: stretch;
-    padding: 5px;
 }
 
 .weatherCard .weatherTop .temp {
-    font-size: 5.4vw;
-    font-weight: 400;
+    font-size: 6vw;
+    font-weight: 500;
 }
 
 .weatherCard .weatherTop .tempText {
     font-size: 1.4vw;
-    font-weight: 500;
+    font-weight: 400;
+    background-color: #f5f5f5;
+    width: 100%;
+    text-align: center;
 }
 
 .weatherCard .weatherTop .tempIcon {
-    width: 7.5vw;
+    width: 7vw;
 }
 
 .weatherCard .weatherBottom {
-    border-top: 1px solid #e6e6e6;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
     background-color: white;
     color: black;
     display: flex;
@@ -209,7 +283,7 @@ body {
 
 .weatherCard .weatherBottom img {
     height: 2.8vh;
-    padding-right: 5px;
+    padding-right: 0.3vw;
 }
 
 .weatherCard .weatherBottom .more {
@@ -217,10 +291,15 @@ body {
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: center;
-	align-items: stretch;
+	align-items: center;
 	align-content: stretch;
-    font-size: 1.4vw;
-    font-weight: 400;
+    font-size: 1.2vw;
+    font-weight: 500;
+    margin: 0 10px;
+}
+
+.weatherCard .weatherBottom .more .value {
+    font-size: 1.8vw;
 }
 
 #temperature {
@@ -255,7 +334,7 @@ body {
 
         <div id="meteo">
             <div id="currentWeather" class="weatherCard">
-                <h1>Maintenant</h1>
+                <h1 id="tempNow">MAINTENANT</h1>
                 <div class="weatherTop">
                     <div id="temperature">
                         <div class="temp"></div>
@@ -264,57 +343,70 @@ body {
                     <div class="tempText"></div>
                 </div>
                 <div class="weatherBottom">
-                    <div class="more"><img src="icons/humidity.svg" /><span class="humidity"></span></div>
-                    <div class="more"><img src="icons/wind.svg" /><span class="windSpeed"></span></div>
-                    <div class="more"><img src="icons/rain.svg" /><span class="rain"></span></div>
+                    <div class="more"><img src="icons/humidity.svg" /><span class="humidity"><span class="value"></span>%</span></div>
+                    <div class="more"><img src="icons/wind.svg" /><span class="windSpeed"><span class="value"></span>KM/H</span></div>
+                    <div class="more"><img src="icons/rain.svg" /><span class="rain"><span class="value"></span>MM</span></div>
                 </div>
             </div>
 
-            <div id="nextHourWeather" class="weatherCard">
-                <h1>Dans une heure</h1>
-                <div class="weatherTop">
-                    <div id="temperature">
-                        <div class="temp"></div>
+            <div id="todayWeather" class="weatherCard">
+                <h1 id="tempAfter">AUJOURD'HUI</h1>
+                <div class="wrapTodayWeather">
+                    <div id="nextHourWeather" class="todayLine">
+                        <div class="nextTime"><span class="value"></span>H</div>
                         <img class="tempIcon" src="" />
+                        <div class="temp"></div>
+                        <div class="more">
+                            <img src="icons/rain.svg" /><span class="rain"><span class="value"></span>MM</span>
+                        </div>
                     </div>
-                    <div class="tempText"></div>
-                </div>
-                <div class="weatherBottom">
-                    <div class="more"><img src="icons/humidity.svg" /><span class="humidity"></span></div>
-                    <div class="more"><img src="icons/wind.svg" /><span class="windSpeed"></span></div>
-                    <div class="more"><img src="icons/rain.svg" /><span class="rain"></span></div>
+                    <div id="twoHourWeather" class="todayLine greyed">
+                        <div class="nextTime"><span class="value"></span>H</div>
+                        <img class="tempIcon" src="" />
+                        <div class="temp"></div>
+                        <div class="more">
+                            <img src="icons/rain.svg" /><span class="rain"><span class="value"></span>MM</span>
+                        </div>
+                    </div>
+                    <div id="threeHourWeather" class="todayLine">
+                        <div class="nextTime"><span class="value"></span>H</div>
+                        <img class="tempIcon" src="" />
+                        <div class="temp"></div>
+                        <div class="more">
+                            <img src="icons/rain.svg" /><span class="rain"><span class="value"></span>MM</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
 
             <div id="tomorrowWeather" class="weatherCard">
 
-                <h1>Demain</h1>
+                <h1>DEMAIN</h1>
 
                 <div class="wrapWeatherSpecial">
                     <div id="tomorrowAMWeather" class="weatherSpecial">
-                        <div class="period">Matin</div>
+                        <div class="period">MATIN</div>
                         <div class="specialTomorrow">
+                            <div class="tempMin"></div>
                             <img class="tempIcon" src="" />
-                            <div class="minMax">
-                                <div class="tempMin"></div>
-                                <div class="tempMax"></div>
-                            </div>
+                            <div class="tempMax"></div>
                         </div>
                     </div>
 
                     <div id="tomorrowPMWeather" class="weatherSpecial">
-                        <div class="period">Après-midi</div>
+                        <div class="period">APRÈS-MIDI</div>
                         <div class="specialTomorrow">
+                            <div class="tempMin"></div>
                             <img class="tempIcon" src="" />
-                            <div class="minMax">
-                                <div class="tempMin"></div>
-                                <div class="tempMax"></div>
-                            </div>
+                            <div class="tempMax"></div>
                         </div>
                     </div>
                 </div>
 
             </div>
+            <!-- Fin tomorrowWeather -->
+
 
         </div>
     </div>
@@ -322,7 +414,6 @@ body {
 
 <script src="js/sun.js"></script>
 <script>
-
 
 class Weather {
 	constructor(from, to, temp, tempMin, tempMax, windSpeed, humidity, rain, symbol, tempText) {
@@ -342,11 +433,6 @@ class Weather {
 const SLIDE_URL = 'https://docs.google.com/presentation/d/e/2PACX-1vQoELt5p3el0Z4v0TOCFjnJCucY8PEZGpSgtZprx8zM1eFt-SpVmP3XuBGIufALVohhtb2MXg7KV3l2/embed?start=true&loop=true&delayms=3000&rm=minimal';
 const LAT = 45.17921;
 const LON = 5.73145;
-
-var currentWeather = new Weather();
-var nextHourWeather = new Weather();
-var tomorrowAMWeather = new Weather();
-var tomorrowPMWeather = new Weather();
 
 function translateDate(date, lang = "fr") {
 
@@ -495,20 +581,32 @@ function setWeatherIcon(child, sym, from) {
     return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "icons/forecast/"+symbol+isNight+".svg";
 }
 
+var scope = this;
+var currentWeather = new Weather();
+var nextHourWeather = new Weather();
+var twoHourWeather = new Weather();
+var threeHourWeather = new Weather();
+var tomorrowAMWeather = new Weather();
+var tomorrowPMWeather = new Weather();
+
 function refreshMeteo() {
 
 	var date = new Date();
     var now = setTimeTo(new Date(), new Date().getUTCHours());
     var afterOneHour = setTimeTo(new Date(), new Date().getUTCHours());
+    var afterTwoHour = setTimeTo(new Date(), new Date().getUTCHours());
+    var afterThreeHour = setTimeTo(new Date(), new Date().getUTCHours());
     var beforeOneHour = setTimeTo(new Date(), new Date().getUTCHours());
 
     var offset = Math.abs(date.getTimezoneOffset() / 60);
- 
+
     var tomorrow06 = setTimeTo(new Date(), 6 - offset);
     var tomorrow12 = setTimeTo(new Date(), 12 - offset);
     var tomorrow18 = setTimeTo(new Date(), 18 - offset);
 
     afterOneHour.setUTCHours( now.getUTCHours() + 1);
+    afterTwoHour.setUTCHours( now.getUTCHours() + 2);
+    afterThreeHour.setUTCHours( now.getUTCHours() + 3);
     beforeOneHour.setUTCHours( now.getUTCHours() - 1);
     tomorrow06.setUTCDate( now.getUTCDate() + 1);
     tomorrow12.setUTCDate( now.getUTCDate() + 1);
@@ -538,104 +636,103 @@ function refreshMeteo() {
     		from[i] = new Date(data[i].from);
     		to[i] = new Date(data[i].to);
 
+            var retrieve = {
+                0: {
+                    "id": "currentWeather",
+                    "first": now,
+                    "second": afterOneHour
+                },
+                1: {
+                    "id": "nextHourWeather",
+                    "first": afterOneHour,
+                    "second": now
+                },
+                2: {
+                    "id": "twoHourWeather",
+                    "first": afterTwoHour,
+                    "second": afterOneHour
+                },
+                3: {
+                    "id": "threeHourWeather",
+                    "first": afterThreeHour,
+                    "second": afterTwoHour
+                },
+                4: {
+                    "id": "tomorrowAMWeather",
+                    "first": tomorrow06,
+                    "second": tomorrow12,
+                    "exit": true
+                },
+                5: {
+                    "id": "tomorrowPMWeather",
+                    "first": tomorrow12,
+                    "second": tomorrow18,
+                    "exit": true
+                }
+            };
 
-            // Prévision maintenant
-            if (from[i].getTime() === now.getTime() && to[i].getTime() === now.getTime()) {
-    			weatherData['currentWeather'] = data[i];
-    		}
+            for (var j=0; j < Object.keys(retrieve).length; j++) {
 
-    		else if (from[i].getTime() === beforeOneHour.getTime() && to[i].getTime() === now.getTime()) {
-    			weatherData['currentWeatherBis'] = data[i];
-    		}
-    		// Prévision h+1
-    		else if (from[i].getTime() === afterOneHour.getTime() && to[i].getTime() === afterOneHour.getTime()) {
-    			weatherData['nextHourWeather'] = data[i];
-    		}
+                if (retrieve[j].exit == true) {
 
-    		else if (from[i].getTime() === now.getTime() && to[i].getTime() === afterOneHour.getTime()) {
-    			weatherData['nextHourWeatherBis'] = data[i];
-    		}
+                    if (from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].second.getTime()) {
+                        scope[retrieve[j].id].from = data[i].from;
+                        scope[retrieve[j].id].to = data[i].to;
+                        scope[retrieve[j].id].tempMin = data[i].location.minTemperature.value;
+                        scope[retrieve[j].id].tempMax = data[i].location.maxTemperature.value;
+                        scope[retrieve[j].id].symbol = data[i].location.symbol.number;
+                    }
+                }
 
-    		// Prévision J+1 matin (entre 6h et 12h)
-    		else if (from[i].getTime() === tomorrow06.getTime() && to[i].getTime() === tomorrow12.getTime()) {
-    			weatherData['tomorrowAMWeather'] = data[i];
-    		}
+                else if (from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].first.getTime()) {
+                    scope[retrieve[j].id].temp = data[i].location.temperature.value;
+                    scope[retrieve[j].id].windSpeed = data[i].location.windSpeed.mps;
+                    scope[retrieve[j].id].humidity = data[i].location.humidity.value;
+                }
+                else if (from[i].getTime() === retrieve[j].second.getTime() && to[i].getTime() === retrieve[j].first.getTime()) {
+                    scope[retrieve[j].id].from = data[i].from;
+                    scope[retrieve[j].id].to = data[i].to;
+                    scope[retrieve[j].id].rain = data[i].location.precipitation.value;
+                    scope[retrieve[j].id].symbol = data[i].location.symbol.number;
+                    scope[retrieve[j].id].tempText = data[i].location.symbol.id;
+                }
 
-    		// Prévision J+1 après-midi (entre 12h et 18h)
-    		else if (from[i].getTime() === tomorrow12.getTime() && to[i].getTime() === tomorrow18.getTime()) {
-    			weatherData['tomorrowPMWeather'] = data[i];
-    		}
-
-    	}
-
-    		//### 1. Récupérer la météo pour l'heure actuelle
-            // currentWeather = Object.assign(currentWeather, nextHourWeather);
-
-    		//### 2. Récupérer la météo pour l'heure d'après
-
-            nextHourWeather.from = weatherData['nextHourWeatherBis'].from;
-    		nextHourWeather.to = weatherData['nextHourWeatherBis'].to;
-    		nextHourWeather.temp = weatherData['nextHourWeather'].location.temperature.value;
-    		nextHourWeather.windSpeed = weatherData['nextHourWeather'].location.windSpeed.mps;
-            nextHourWeather.humidity = weatherData['nextHourWeather'].location.humidity.value;
-    		nextHourWeather.rain = weatherData['nextHourWeatherBis'].location.precipitation.value;
-    		nextHourWeather.symbol = weatherData['nextHourWeatherBis'].location.symbol.number;
-    		nextHourWeather.tempText = weatherData['nextHourWeatherBis'].location.symbol.id;
-
-            //### 1.
-            if (typeof weatherData['currentWeatherBis'] !== "undefined") {
-                currentWeather.from = weatherData['currentWeatherBis'].from;
-        		currentWeather.to = weatherData['currentWeatherBis'].to;
-        		currentWeather.temp = weatherData['currentWeather'].location.temperature.value;
-        		currentWeather.windSpeed = weatherData['currentWeather'].location.windSpeed.mps;
-                currentWeather.humidity = weatherData['currentWeather'].location.humidity.value;
-        		currentWeather.rain = weatherData['currentWeatherBis'].location.precipitation.value;
-        		currentWeather.symbol = weatherData['currentWeatherBis'].location.symbol.number;
-        		currentWeather.tempText = weatherData['currentWeatherBis'].location.symbol.id;
-            } else {
-                currentWeather = Object.assign(currentWeather, nextHourWeather);
             }
+        }
 
-    		//### 3. Récupérer la météo pour demain matin
-
-    		tomorrowAMWeather.from = weatherData['tomorrowAMWeather'].from;
-    		tomorrowAMWeather.to = weatherData['tomorrowAMWeather'].to;
-    		tomorrowAMWeather.tempMin = weatherData['tomorrowAMWeather'].location.minTemperature.value;
-    		tomorrowAMWeather.tempMax = weatherData['tomorrowAMWeather'].location.maxTemperature.value;
-    		tomorrowAMWeather.symbol = weatherData['tomorrowAMWeather'].location.symbol.number;
-
-
-    		//### 4. Récupérer la météo pour demain après-midi
-
-    		tomorrowPMWeather.from = weatherData['tomorrowPMWeather'].from;
-    		tomorrowPMWeather.to = weatherData['tomorrowPMWeather'].to;
-    		tomorrowPMWeather.tempMin = weatherData['tomorrowPMWeather'].location.minTemperature.value;
-    		tomorrowPMWeather.tempMax = weatherData['tomorrowPMWeather'].location.maxTemperature.value;
-    		tomorrowPMWeather.symbol = weatherData['tomorrowPMWeather'].location.symbol.number;
-
-    		console.log(tomorrowAMWeather);
+        if (typeof currentWeather.from == "undefined") {
+            currentWeather = Object.assign(currentWeather, nextHourWeather);
+        }
 
         setWeatherIcon("currentWeather", currentWeather.symbol, currentWeather.from);
     	document.getElementById('currentWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(currentWeather.symbol);
-    	document.getElementById('currentWeather').getElementsByClassName('temp')[0].innerHTML = currentWeather.temp+"°";
-    	document.getElementById('currentWeather').getElementsByClassName('rain')[0].innerHTML = currentWeather.rain+" mm";
-        document.getElementById('currentWeather').getElementsByClassName('humidity')[0].innerHTML = Math.round(currentWeather.humidity)+"%";
-    	document.getElementById('currentWeather').getElementsByClassName('windSpeed')[0].innerHTML = Math.round(speedMstoKmh(currentWeather.windSpeed), 0)+" km/h";
+    	document.getElementById('currentWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(currentWeather.temp)+"°";
+    	document.getElementById('currentWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(currentWeather.rain);
+        document.getElementById('currentWeather').getElementsByClassName('humidity')[0].getElementsByClassName('value')[0].innerHTML = Math.round(currentWeather.humidity);
+    	document.getElementById('currentWeather').getElementsByClassName('windSpeed')[0].getElementsByClassName('value')[0].innerHTML = Math.round(speedMstoKmh(currentWeather.windSpeed), 0);
 
         setWeatherIcon("nextHourWeather", nextHourWeather.symbol, nextHourWeather.from);
-    	document.getElementById('nextHourWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(nextHourWeather.symbol);
-    	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = nextHourWeather.temp+"°";
-    	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].innerHTML = nextHourWeather.rain+" mm";
-        document.getElementById('nextHourWeather').getElementsByClassName('humidity')[0].innerHTML = Math.round(nextHourWeather.humidity)+"%";
-    	document.getElementById('nextHourWeather').getElementsByClassName('windSpeed')[0].innerHTML = Math.round(speedMstoKmh(nextHourWeather.windSpeed), 0)+" km/h";
+    	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(nextHourWeather.temp)+"°";
+    	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(nextHourWeather.rain);
+        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = new Date(nextHourWeather.from).getHours();
+
+        setWeatherIcon("twoHourWeather", twoHourWeather.symbol, twoHourWeather.from);
+    	document.getElementById('twoHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(twoHourWeather.temp)+"°";
+    	document.getElementById('twoHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(twoHourWeather.rain);
+        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = new Date(twoHourWeather.from).getHours();
+
+        setWeatherIcon("threeHourWeather", threeHourWeather.symbol, threeHourWeather.from);
+    	document.getElementById('threeHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(threeHourWeather.temp)+"°";
+    	document.getElementById('threeHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(threeHourWeather.rain);
+        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = new Date(threeHourWeather.from).getHours();
 
         setWeatherIcon("tomorrowAMWeather", tomorrowAMWeather.symbol, tomorrowAMWeather.from);
-    	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMin')[0].innerHTML = tomorrowAMWeather.tempMin+"°";
-    	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMax')[0].innerHTML = tomorrowAMWeather.tempMax+"°";
+    	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMin')[0].innerHTML = Math.round(tomorrowAMWeather.tempMin)+"°";
+    	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMax')[0].innerHTML = Math.round(tomorrowAMWeather.tempMax)+"°";
 
         setWeatherIcon("tomorrowPMWeather", tomorrowPMWeather.symbol, tomorrowPMWeather.from);
-    	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMin')[0].innerHTML = tomorrowPMWeather.tempMin+"°";
-    	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMax')[0].innerHTML = tomorrowPMWeather.tempMax+"°";
+    	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMin')[0].innerHTML = Math.round(tomorrowPMWeather.tempMin)+"°";
+    	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMax')[0].innerHTML = Math.round(tomorrowPMWeather.tempMax)+"°";
 
       } else {
         console.log('error');
