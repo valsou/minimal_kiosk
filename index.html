@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 <meta charset="UTF-8">
@@ -320,7 +320,7 @@ body {
     </div>
 
 
-
+<script src="js/sun.js"></script>
 <script>
 class Weather {
 	constructor(from, to, temp, tempMin, tempMax, windSpeed, humidity, rain, symbol, tempText) {
@@ -338,6 +338,8 @@ class Weather {
 }
 
 const SLIDE_URL = 'https://docs.google.com/presentation/d/e/2PACX-1vQoELt5p3el0Z4v0TOCFjnJCucY8PEZGpSgtZprx8zM1eFt-SpVmP3XuBGIufALVohhtb2MXg7KV3l2/embed?start=true&loop=true&delayms=3000&rm=minimal';
+const LAT = 45.17921;
+const LON = 5.73145;
 
 var currentWeather = new Weather();
 var nextHourWeather = new Weather();
@@ -449,9 +451,7 @@ function getDateTime() {
 }
 
 function setTimeTo(date, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) {
-	if (hours != 0) {
-		date.setUTCHours(hours);
-	}
+	date.setUTCHours(hours);
 	date.setMinutes(minutes);
 	date.setSeconds(seconds);
 	date.setMilliseconds(milliseconds);
@@ -459,17 +459,23 @@ function setTimeTo(date, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) 
 	return date;
 }
 
-function setWeatherIcon(child, sym) {
-    var date = new Date();
-    var lever = setTimeTo(new Date(), 6, 30, 0, 0); // début journée = 6h30
-    var coucher = setTimeTo(new Date(), 17, 30, 0, 0); // fin journée = 17h30
+function setWeatherIcon(child, sym, from) {
+
+	date = new Date(from);
+	now = new Date();
+    var rise = date.sunrise(LAT,LON); // Sunrise time at Grenoble, France
+    var set = date.sunset(LAT,LON); // Sunset time at Grenoble, France
+
+    var sunrise = setTimeTo(rise, rise.getUTCHours(), rise.getUTCMinutes());
+    var sunset = setTimeTo(set, set.getUTCHours(), set.getUTCMinutes());
+
     var symbol = ("0" + sym).slice(-2);
     var isNight = "";
 
     // Icons without day/night alternatives
     var simpleIcons = ["4","9","10","11","12","13","14","15","22","23","30","31","32","33","34","46","47","48","49","50"];
 
-    if (date.getTime() <= lever.getTime() || date.getTime() >= coucher.getTime()) {
+    if (now.getTime() <= sunrise.getTime() || now.getTime() >= sunset.getTime()) {
         isNight = "n";
     } else {
         isNight = "d";
@@ -479,19 +485,20 @@ function setWeatherIcon(child, sym) {
         isNight = "d";
     }
 
+    // If weather symbol doesn't have day/night alternatives, set nothing to the night parameter
     if (simpleIcons.includes(sym)) {
         isNight = "";
     }
 
-    // return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "https://api.met.no/weatherapi/weathericon/1.1/?symbol="+symbol+"&is_night="+isNight+"&content_type=image%2Fsvg%2Bxml";
     return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "icons/forecast/"+symbol+isNight+".svg";
 }
 
 function refreshMeteo() {
 
-    var now = setTimeTo(new Date());
-    var afterOneHour = setTimeTo(new Date());
-    var beforeOneHour = setTimeTo(new Date());
+	date = new Date();
+    var now = setTimeTo(new Date(), new Date().getUTCHours());
+    var afterOneHour = setTimeTo(new Date(), new Date().getUTCHours());
+    var beforeOneHour = setTimeTo(new Date(), new Date().getUTCHours());
     var tomorrow06 = setTimeTo(new Date(), 6); // 06hOO
     var tomorrow12 = setTimeTo(new Date(), 12); // 12h00
     var tomorrow18 = setTimeTo(new Date(), 18); // 18h00
@@ -601,25 +608,25 @@ function refreshMeteo() {
     		tomorrowPMWeather.tempMax = weatherData['tomorrowPMWeather'].location.maxTemperature.value;
     		tomorrowPMWeather.symbol = weatherData['tomorrowPMWeather'].location.symbol.number;
 
-        setWeatherIcon("currentWeather", currentWeather.symbol);
+        setWeatherIcon("currentWeather", currentWeather.symbol, currentWeather.from);
     	document.getElementById('currentWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(currentWeather.symbol);
     	document.getElementById('currentWeather').getElementsByClassName('temp')[0].innerHTML = currentWeather.temp+"°";
     	document.getElementById('currentWeather').getElementsByClassName('rain')[0].innerHTML = currentWeather.rain+" mm";
         document.getElementById('currentWeather').getElementsByClassName('humidity')[0].innerHTML = Math.round(currentWeather.humidity)+"%";
     	document.getElementById('currentWeather').getElementsByClassName('windSpeed')[0].innerHTML = Math.round(speedMstoKmh(currentWeather.windSpeed), 0)+" km/h";
 
-        setWeatherIcon("nextHourWeather", nextHourWeather.symbol);
+        setWeatherIcon("nextHourWeather", nextHourWeather.symbol, nextHourWeather.from);
     	document.getElementById('nextHourWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(nextHourWeather.symbol);
     	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = nextHourWeather.temp+"°";
     	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].innerHTML = nextHourWeather.rain+" mm";
         document.getElementById('nextHourWeather').getElementsByClassName('humidity')[0].innerHTML = Math.round(nextHourWeather.humidity)+"%";
     	document.getElementById('nextHourWeather').getElementsByClassName('windSpeed')[0].innerHTML = Math.round(speedMstoKmh(nextHourWeather.windSpeed), 0)+" km/h";
 
-        setWeatherIcon("tomorrowAMWeather", tomorrowAMWeather.symbol);
+        setWeatherIcon("tomorrowAMWeather", tomorrowAMWeather.symbol, tomorrowAMWeather.from);
     	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMin')[0].innerHTML = tomorrowAMWeather.tempMin+"°";
     	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMax')[0].innerHTML = tomorrowAMWeather.tempMax+"°";
 
-        setWeatherIcon("tomorrowPMWeather", tomorrowPMWeather.symbol);
+        setWeatherIcon("tomorrowPMWeather", tomorrowPMWeather.symbol, tomorrowPMWeather.from);
     	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMin')[0].innerHTML = tomorrowPMWeather.tempMin+"°";
     	document.getElementById('tomorrowPMWeather').getElementsByClassName('tempMax')[0].innerHTML = tomorrowPMWeather.tempMax+"°";
 
