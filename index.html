@@ -594,6 +594,7 @@ function refreshMeteo() {
     var afterOneHour = setTimeTo(new Date(), new Date().getUTCHours());
     var afterTwoHour = setTimeTo(new Date(), new Date().getUTCHours());
     var afterThreeHour = setTimeTo(new Date(), new Date().getUTCHours());
+    var afterFourHour = setTimeTo(new Date(), new Date().getUTCHours());
     var beforeOneHour = setTimeTo(new Date(), new Date().getUTCHours());
 
     var offset = Math.abs(date.getTimezoneOffset() / 60);
@@ -605,6 +606,7 @@ function refreshMeteo() {
     afterOneHour.setUTCHours( now.getUTCHours() + 1);
     afterTwoHour.setUTCHours( now.getUTCHours() + 2);
     afterThreeHour.setUTCHours( now.getUTCHours() + 3);
+    afterFourHour.setUTCHours( now.getUTCHours() + 4);
     beforeOneHour.setUTCHours( now.getUTCHours() - 1);
     tomorrow06.setUTCDate( now.getUTCDate() + 1);
     tomorrow12.setUTCDate( now.getUTCDate() + 1);
@@ -638,22 +640,23 @@ function refreshMeteo() {
                 0: {
                     "id": "currentWeather",
                     "first": now,
-                    "second": afterOneHour
+                    "second": afterOneHour,
+                    "stable": false
                 },
                 1: {
                     "id": "nextHourWeather",
                     "first": afterOneHour,
-                    "second": now
+                    "second": afterTwoHour
                 },
                 2: {
                     "id": "twoHourWeather",
                     "first": afterTwoHour,
-                    "second": afterOneHour
+                    "second": afterThreeHour
                 },
                 3: {
                     "id": "threeHourWeather",
                     "first": afterThreeHour,
-                    "second": afterTwoHour
+                    "second": afterFourHour
                 },
                 4: {
                     "id": "tomorrowAMWeather",
@@ -669,6 +672,11 @@ function refreshMeteo() {
                 }
             };
 
+            if (nextHourWeather.from === retrieve[0].first && nextHourWeather.to === retrieve[0].second) {
+                currentWeather = Object.assign(currentWeather, nextHourWeather);
+                retrieve[0].stable = true;
+            }
+
             for (var j=0; j < Object.keys(retrieve).length; j++) {
 
                 if (retrieve[j].exit == true) {
@@ -681,27 +689,24 @@ function refreshMeteo() {
                         scope[retrieve[j].id].symbol = data[i].location.symbol.number;
                     }
                 }
-
-                else if (from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].first.getTime()) {
+                else if ((from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].first.getTime()) && retrieve[j].stable != true) {
                     scope[retrieve[j].id].temp = data[i].location.temperature.value;
                     scope[retrieve[j].id].windSpeed = data[i].location.windSpeed.mps;
                     scope[retrieve[j].id].humidity = data[i].location.humidity.value;
-
                 }
-                else if (from[i].getTime() === retrieve[j].second.getTime() && to[i].getTime() === retrieve[j].first.getTime()) {
+                else if ((from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].second.getTime()) && retrieve[j].stable != true) {
                     scope[retrieve[j].id].from = data[i].from;
                     scope[retrieve[j].id].to = data[i].to;
                     scope[retrieve[j].id].rain = data[i].location.precipitation.value;
                     scope[retrieve[j].id].symbol = data[i].location.symbol.number;
                     scope[retrieve[j].id].tempText = data[i].location.symbol.id;
-                    console.log(retrieve[j].id);
-                    console.log(data[i].to);
                 }
 
             }
         }
 
-        if (typeof currentWeather.from == "undefined") {
+        // First update of weather. If currentWeather is undefined, assign data of nextHourWeather
+        if (typeof currentWeather.temp == "undefined") {
             currentWeather = Object.assign(currentWeather, nextHourWeather);
         }
 
@@ -715,17 +720,17 @@ function refreshMeteo() {
         setWeatherIcon("nextHourWeather", nextHourWeather.symbol, nextHourWeather.from);
     	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(nextHourWeather.temp)+"°";
     	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(nextHourWeather.rain);
-        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(nextHourWeather.to).getHours()).slice(-2);
+        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(nextHourWeather.from).getHours()).slice(-2);
 
         setWeatherIcon("twoHourWeather", twoHourWeather.symbol, twoHourWeather.from);
     	document.getElementById('twoHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(twoHourWeather.temp)+"°";
     	document.getElementById('twoHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(twoHourWeather.rain);
-        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(twoHourWeather.to).getHours()).slice(-2);
+        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(twoHourWeather.from).getHours()).slice(-2);
 
         setWeatherIcon("threeHourWeather", threeHourWeather.symbol, threeHourWeather.from);
     	document.getElementById('threeHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(threeHourWeather.temp)+"°";
     	document.getElementById('threeHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(threeHourWeather.rain);
-        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(threeHourWeather.to).getHours()).slice(-2);
+        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(threeHourWeather.from).getHours()).slice(-2);
 
         setWeatherIcon("tomorrowAMWeather", tomorrowAMWeather.symbol, tomorrowAMWeather.from);
     	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMin')[0].innerHTML = Math.round(tomorrowAMWeather.tempMin)+"°";
