@@ -21,6 +21,7 @@ body {
 	align-items: stretch;
 	align-content: stretch;
     font-family: "Fira Sans", sans-serif;
+    background-color: black;
 }
 
 #date {
@@ -65,12 +66,6 @@ body {
 }
 
 #meteo {
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: center;
-	align-content: stretch;
     width: 21%;
 }
 
@@ -171,16 +166,11 @@ body {
 }
 
 #tomorrowWeather .specialTomorrow {
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: stretch;
-	align-content: stretch;
+    text-align: center;
 }
 
 #tomorrowWeather .tempIcon {
-    height: 4vw;
+    height: 5vw;
     padding: 0.2vw 0;
 }
 
@@ -596,7 +586,7 @@ function setWeatherIcon(child, sym, from) {
         isNight = "";
     }
 
-    return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "icons/forecast/"+symbol+isNight+".svg";
+    return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "icons/forecast/"+symbol+isNight+".png";
 }
 
 var scope = this;
@@ -715,7 +705,7 @@ function refreshMeteo() {
                     scope[retrieve[j].id].symbol = data[i].location.symbol.number;
                     scope[retrieve[j].id].tempText = data[i].location.symbol.id;
                     console.log(retrieve[j].id);
-                    console.log(data[i].from);
+                    console.log(data[i].to);
                 }
 
             }
@@ -735,17 +725,17 @@ function refreshMeteo() {
         setWeatherIcon("nextHourWeather", nextHourWeather.symbol, nextHourWeather.from);
     	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(nextHourWeather.temp)+"°";
     	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(nextHourWeather.rain);
-        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(nextHourWeather.from).getHours()).slice(-2);
+        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(nextHourWeather.to).getHours()).slice(-2);
 
         setWeatherIcon("twoHourWeather", twoHourWeather.symbol, twoHourWeather.from);
     	document.getElementById('twoHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(twoHourWeather.temp)+"°";
     	document.getElementById('twoHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(twoHourWeather.rain);
-        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(twoHourWeather.from).getHours()).slice(-2);
+        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(twoHourWeather.to).getHours()).slice(-2);
 
         setWeatherIcon("threeHourWeather", threeHourWeather.symbol, threeHourWeather.from);
     	document.getElementById('threeHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(threeHourWeather.temp)+"°";
     	document.getElementById('threeHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(threeHourWeather.rain);
-        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(threeHourWeather.from).getHours()).slice(-2);
+        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(threeHourWeather.to).getHours()).slice(-2);
 
         setWeatherIcon("tomorrowAMWeather", tomorrowAMWeather.symbol, tomorrowAMWeather.from);
     	document.getElementById('tomorrowAMWeather').getElementsByClassName('tempMin')[0].innerHTML = Math.round(tomorrowAMWeather.tempMin)+"°";
