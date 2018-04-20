@@ -116,11 +116,13 @@ Type `sudo apt-get install git`.
 
 Type `cd /home/mounier`.
 
-Type `git pull https://github.com/valsou/minimal_kiosk`.
+Type `git clone https://github.com/valsou/minimal_kiosk`.
 
 Type `cd minimal_kiosk`.
 
 Type `git update-index --assume-unchanged js/config.js`.
+
+Now you can edit the config file and update every day without erasing your parameters.
 
 #### Minimal environment
 Type `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox`.
