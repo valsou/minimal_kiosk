@@ -98,14 +98,7 @@ Minimal kiosk comes with a .html page all written in HTML/CSS/JavaScript. It sho
 * Weather (thanks to the Meteorologisk Institutt of Norway https://api.met.no/)
 * a Google Slide
 
-You can edit the JavaScript constants in `index.html`.
-Replace this part :
-```
-const SLIDE_URL = 'http://you-url';
-const LAT = latitude;
-const LON = longitude;
-const ELE = elevation;
-```
+You can edit the JavaScript constants in `js/config.js`.
 
 The document is not exempt of bugs and is badly internationalized. Please, open issues to propose me solutions.
 
@@ -127,7 +120,7 @@ Type `git pull https://github.com/valsou/minimal_kiosk`.
 
 Type `cd minimal_kiosk`.
 
-Type `git update-index --assume-unchanged config.js`.
+Type `git update-index --assume-unchanged js/config.js`.
 
 #### Minimal environment
 Type `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox`.
