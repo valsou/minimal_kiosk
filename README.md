@@ -67,7 +67,7 @@ Type `exit` to logout pi user.
 
 Type the credentials for your new user, `mounier` in this example.
 
-Then, type `sudo deluser remove-home pi`.
+Then, type `sudo deluser --remove-home pi`.
 
 #### Extra security
 As another security, be sure each time sudo is used a password is prompted.
