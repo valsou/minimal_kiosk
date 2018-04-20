@@ -1,4 +1,6 @@
 {
-  "test1",
-  "test2"
+  "slide": "HTTP://URL-OF-YOUR-SLIDE",
+  "latitude": 0.0,
+  "longitude": 0.0,
+  "elevation": 0
 }
