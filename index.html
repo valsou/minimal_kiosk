@@ -411,6 +411,7 @@ body {
 
 
 <script src="js/sun.js"></script>
+<script src="js/config.js"></script>
 <script>
 
 class Weather {
@@ -427,11 +428,6 @@ class Weather {
 		this.tempText = tempText;
 	}
 }
-
-const SLIDE_URL = 'https://docs.google.com/presentation/d/e/2PACX-1vQoELt5p3el0Z4v0TOCFjnJCucY8PEZGpSgtZprx8zM1eFt-SpVmP3XuBGIufALVohhtb2MXg7KV3l2/embed?start=true&loop=true&delayms=3000&rm=minimal';
-const LAT = 45.17921;
-const LON = 5.73145;
-const ELE = 215;
 
 function translateDate(date, lang = "fr") {
 
@@ -617,7 +613,7 @@ function refreshMeteo() {
     var request = new XMLHttpRequest();
     //
 
-    request.open('GET', 'https://api.met.no/weatherapi/locationforecast/1.9/?lat='+LAT+'&lon='+LON+'&msl='+ELE, true);
+    request.open('GET', 'https://api.met.no/weatherapi/locationforecast/1.9/?lat='+LATITUDE+'&lon='+LONGITUDE+'&msl='+ELEVATION, true);
     request.setRequestHeader('Accept', 'application/json');
     request.onload = function () {
 

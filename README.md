@@ -123,9 +123,11 @@ Type `sudo apt-get install git`.
 
 Type `cd /home/mounier`.
 
-Type `git pull https://github.com/valsou/minimal_kiosk`
+Type `git pull https://github.com/valsou/minimal_kiosk`.
 
-Now a folder named `minimal_kiosk` has been created and all the documents inside.
+Type `cd minimal_kiosk`.
+
+Type `git update-index --assume-unchanged config.js`.
 
 #### Minimal environment
 Type `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox`.
@@ -198,7 +200,6 @@ Edit the document as following :
 00 19 * * * vcgencmd display_power 0
 00 19 * * * killall xinit
 50 6 * * * pkill -KILL -u mounier
-00 00 * * * cd /home/mounier/minimal_kiosk && git reset --hard HEAD && git pull
 ```
 
 In the order :
@@ -206,4 +207,3 @@ In the order :
 * Every day at 07:00 PM -> power off the screen
 * Every day at 07:00 PM -> shutdown GUI environment/chromium
 * Every day at 6:50 AM -> open GUI environment/chromium
-* Every day at midnight -> update the web page from Github.com
