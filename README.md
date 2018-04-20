@@ -76,7 +76,7 @@ Type `sudo nano /etc/sudoers.d/010_pi-nopasswd`.
 
 Edit the document to the following :
 ```
-pi ALL=(ALL) PASSWD: ALL
+mounier ALL=(ALL) PASSWD: ALL
 ```
 
 ### Auto login our new user
