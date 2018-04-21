@@ -550,8 +550,8 @@ function setTimeTo(date, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) 
 function setWeatherIcon(child, sym, from) {
 
 	date = new Date(from);
-    var rise = date.sunrise(LAT,LON); // Sunrise time at Grenoble, France
-    var set = date.sunset(LAT,LON); // Sunset time at Grenoble, France
+    var rise = date.sunrise(LATITUDE,LONGITUDE); // Sunrise time at Grenoble, France
+    var set = date.sunset(LATITUDE,LONGITUDE); // Sunset time at Grenoble, France
 
     var sunrise = setTimeTo(rise, rise.getUTCHours(), rise.getUTCMinutes());
     var sunset = setTimeTo(set, set.getUTCHours(), set.getUTCMinutes());
