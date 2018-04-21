@@ -710,22 +710,22 @@ function refreshMeteo() {
             currentWeather = Object.assign(currentWeather, nextHourWeather);
         }
 
-        console.log("Météo mise à jour : "+date.toUTCString());
-        console.log("Fichier créé : "+result.created);
-        console.log("Next run : "+result.meta.model.nextrun);
-        console.log("currentWeather");
-        console.log(currentWeather);
-        console.log("nextHourWeather");
-        console.log(nextHourWeather);
-        console.log("twoHourWeather");
-        console.log(twoHourWeather);
-        console.log("threeHourWeather");
-        console.log(threeHourWeather);
-        console.log("tomorrowAMWeather");
-        console.log(tomorrowAMWeather);
-        console.log("tomorrowPMWeather");
-        console.log(tomorrowPMWeather);
-        console.log("*************************");
+        // console.log("Météo mise à jour : "+date.toUTCString());
+        // console.log("Fichier créé : "+result.created);
+        // console.log("Next run : "+result.meta.model.nextrun);
+        // console.log("currentWeather");
+        // console.log(currentWeather);
+        // console.log("nextHourWeather");
+        // console.log(nextHourWeather);
+        // console.log("twoHourWeather");
+        // console.log(twoHourWeather);
+        // console.log("threeHourWeather");
+        // console.log(threeHourWeather);
+        // console.log("tomorrowAMWeather");
+        // console.log(tomorrowAMWeather);
+        // console.log("tomorrowPMWeather");
+        // console.log(tomorrowPMWeather);
+        // console.log("*************************");
 
         setWeatherIcon("currentWeather", currentWeather.symbol, currentWeather.from);
     	document.getElementById('currentWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(currentWeather.symbol);
