@@ -57,9 +57,11 @@ Type `sudo adduser mounier`.
 
 Type a strong password for this user.
 
-##### Give user sudo permissions
+##### Give user privileges
 
 Type `sudo adduser mounier sudo`.
+
+Type `sudo usermod -a -G video mounier`.
 
 ##### Delete pi user
 
@@ -158,11 +160,11 @@ A GUI environment is launched and Chromium should open the web page.
 
 To exit the Kiosk press on your keyboard `CTRL`+`ALT`+`BACK SPACE`.
 
-If `startx` returned an error, try this :
+If `startx` shows an error, try to delete `.Xauthority` file and reboot.
 
-Type `sudo rm /home/mounier/.Xauthority`.
+Type `sudo rm -R /home/mounier/.Xauthority`.
 
-And retry !
+Type `reboot`.
 
 #### Open Kiosk automatically on Boot
 Type `nano /home/mounier/.bash_profile` and edit the document as following :
@@ -174,7 +176,7 @@ Type `nano /home/mounier/.bash_profile` and edit the document as following :
 If you have chosen to import the kiosk page dynamically, edit the document as following :
 
 ```
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && cd /home/mounier/minimal_kiosk && git reset --hard HEAD && git pull && startx -- -nocursor
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && cd /home/mounier/minimal_kiosk && git pull && startx -- -nocursor
 ```
 
 This way, each time Kiosk is launched, the web page is updated.
@@ -191,10 +193,11 @@ Type `crontab -e`.
 Edit the document as following :
 
 ```
-00 7 * * * vcgencmd display_power 1
-00 19 * * * vcgencmd display_power 0
-00 19 * * * killall xinit
+0 7 * * * vcgencmd display_power 1
+0 19 * * * vcgencmd display_power 0
+0 19 * * * killall xinit
 50 6 * * * pkill -KILL -u mounier
+0 0 * * * cd /home/mounier/minimal_kiosk && git pull
 ```
 
 In the order :
@@ -202,3 +205,4 @@ In the order :
 * Every day at 07:00 PM -> power off the screen
 * Every day at 07:00 PM -> shutdown GUI environment/chromium
 * Every day at 6:50 AM -> open GUI environment/chromium
+* Every day at midnight update git repo
