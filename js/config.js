@@ -2,10 +2,10 @@
 // # Please replace with your own informations
 // #######################################
 // # URL of your slide (Google Slide or another with 16/10 iframe)
-const SLIDE_URL = "https://docs.google.com/presentation/d/e/2PACX-1vQoELt5p3el0Z4v0TOCFjnJCucY8PEZGpSgtZprx8zM1eFt-SpVmP3XuBGIufALVohhtb2MXg7KV3l2/embed?start=true&loop=true&delayms=3000&rm=minimal";
+const SLIDE_URL = "https://YOURURL";
 // # Latitude of the city you want weather
-const LATITUDE = 45.17921;
+const LATITUDE = 0;
 // # Longitude of the city you want weather
-const LONGITUDE = 5.73145;
+const LONGITUDE = 0;
 // # Elevation above the sea of the city you want weather
-const ELEVATION = 215;
+const ELEVATION = 0;
