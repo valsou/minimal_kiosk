@@ -2,7 +2,7 @@
 // # Please replace with your own informations
 // #######################################
 // # MEMO COORDINATES #
-// # Grenoble = Lat. 45.17921 Lon. 5.73145 Elevation 215
+// # Grenoble = Lat. 45.17921 Lon. 5.73145 Elevation 215m
 // #######################################
 // # URL of your slide (Google Slide or another with 16/10 iframe)
 const SLIDE_URL = "URL OF YOUR SLIDE";
