@@ -2,7 +2,7 @@
 // # Please replace with your own informations
 // #######################################
 // # URL of your slide (Google Slide or another with 16/10 iframe)
-const SLIDE_URL = "https://YOURURL";
+const SLIDE_URL = "url of your slide";
 // # Latitude of the city you want weather
 const LATITUDE = 0;
 // # Longitude of the city you want weather
