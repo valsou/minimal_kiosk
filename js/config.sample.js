@@ -1,8 +1,8 @@
 // # Configuration constants
 // # Please replace with your own informations
 // #######################################
-// # MEMO #
-// Grenoble = 
+// # MEMO COORDINATES #
+// # Grenoble = Lat. 45 Lon. 5 Elevation 215
 // #######################################
 // # URL of your slide (Google Slide or another with 16/10 iframe)
 const SLIDE_URL = "URL OF YOUR SLIDE";
