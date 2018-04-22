@@ -5,10 +5,10 @@
 // Grenoble = 
 // #######################################
 // # URL of your slide (Google Slide or another with 16/10 iframe)
-const SLIDE_URL = "https://google.com";
+const SLIDE_URL = "URL OF YOUR SLIDE";
 // # Latitude of the city you want weather
-const LATITUDE = 45;
+const LATITUDE = 0;
 // # Longitude of the city you want weather
-const LONGITUDE = 5;
+const LONGITUDE = 0;
 // # Elevation above the sea of the city you want weather
-const ELEVATION = 215;
+const ELEVATION = 0;
