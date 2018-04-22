@@ -1,6 +1,9 @@
 // # Configuration constants
 // # Please replace with your own informations
 // #######################################
+// # MEMO #
+// Grenoble = 
+// #######################################
 // # URL of your slide (Google Slide or another with 16/10 iframe)
 const SLIDE_URL = "url of your slide";
 // # Latitude of the city you want weather
