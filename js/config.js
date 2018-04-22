@@ -4,8 +4,8 @@
 // # URL of your slide (Google Slide or another with 16/10 iframe)
 const SLIDE_URL = "url of your slide";
 // # Latitude of the city you want weather
-const LATITUDE = 0;
+const LATITUDE = 0.0000;
 // # Longitude of the city you want weather
-const LONGITUDE = 0;
+const LONGITUDE = 0.0000;
 // # Elevation above the sea of the city you want weather
 const ELEVATION = 0;
