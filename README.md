@@ -1,5 +1,7 @@
 # Minimal kiosk
 
+![Screenshot example](preview.png)
+
 ## 1. Prerequisites
 * Download Raspbian Lite in its latest version (in 2018 : Stretch).
 https://www.raspberrypi.org/downloads/raspbian/
@@ -101,6 +103,7 @@ Minimal kiosk comes with a .html page all written in HTML/CSS/JavaScript. It sho
 * a Google Slide
 
 You can edit the JavaScript constants in `js/config.js`.
+Don't forget to copy `config.sample.js` to `config.js` with your own configuration.
 
 The document is not exempt of bugs and is badly internationalized. Please, open issues to propose me solutions.
 
@@ -112,7 +115,7 @@ Mount your SD Card on your computer. Be sure that you can see `ext4` format driv
 
 In the folder `home/mounier/` create a folder named `minimal_kiosk` and copy/paste the page and its dependances.
 
-##### Dynamic (prefrence)
+##### Dynamic (preference)
 Install `git`.
 Type `sudo apt-get install git`.
 
@@ -120,11 +123,19 @@ Type `cd /home/mounier`.
 
 Type `git clone https://github.com/valsou/minimal_kiosk`.
 
-Type `cd minimal_kiosk`.
+Type : `cd minimal_kiosk`.
 
-Type `git update-index --assume-unchanged js/config.js`.
+Let's create a .gitignore to ignore our configuration file.
 
-Now you can edit the config file and update every day without erasing your parameters.
+```
+cp js/config.sample.js js/config.js
+nano .gitignore
+```
+
+Insert `js/config.js` and save the file.
+
+Now you can edit your own configuration file.
+Each update, the `config.sample.js` file may be updated, but not yours.
 
 #### Minimal environment
 Type `sudo apt-get install --no-install-recommends xserver-xorg x11-xserver-utils xinit openbox`.
