@@ -205,6 +205,8 @@ This way, each time Kiosk is launched, the web page is updated.
 
 ### Configure Display resolution (if needed)
 
+In most cases the TV is 1080p (Full HD) compatible. So, we want a 1920x1080 (16/9) resolution.
+
 Type `sudo nano /boot/config.txt`.
 
 On the document, edit those lines as following :
