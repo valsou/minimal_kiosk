@@ -43,6 +43,28 @@ Select your Country/City.
 
 In my case : Europe/Paris.
 
+### (Optional) Configure Proxy
+
+Type `cd /etc/apt/apt.conf.d`.
+
+Create a file named `10proxy`typing `sudo nano 10proxy`.
+
+Fill the document with :
+
+```
+Acquire::http::Proxy "http://proxyaddress:proxyport/";
+Acquire::https::Proxy "http://proxyaddress:proxyport/";
+```
+
+Then, type `sudo nano /etc/environment`.
+
+Fille the document with :
+
+```
+export http_proxy="http://proxyaddress:port/"
+export https_proxy="http://proxyaddress:port/"
+```
+
 ### Update the Pi
 
 Type `sudo apt-get update && sudo apt-get upgrade -y`.
