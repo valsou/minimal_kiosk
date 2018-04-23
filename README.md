@@ -43,7 +43,7 @@ Select your Country/City.
 
 In my case : Europe/Paris.
 
-### (Optional) Configure Proxy
+#### (Optional) Configure Proxy
 
 Type `cd /etc/apt/apt.conf.d`.
 
