@@ -203,6 +203,19 @@ If you have chosen to import the kiosk page dynamically, edit the document as fo
 
 This way, each time Kiosk is launched, the web page is updated.
 
+### Configure Display resolution (if needed)
+
+Type `sudo nano /boot/config.txt`.
+
+On the document, edit those lines as following :
+
+```
+disable_overscan=1
+hdmi_drive=2
+hdmi_group=1
+hdmi_mode=16
+```
+
 ### Automation (cron)
 We can automate :
 * the screen extinction, to save energy.
