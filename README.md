@@ -4,6 +4,7 @@
 
 Possible improvements :
 * in "today" case : show wind data if rain data < 5mm (light rain)
+* add "this afternoon" when datetime < 12:00 and show "tomorrow" when datetime >= 12:00
 * simplify configuration
 
 ## 1. Prerequisites
