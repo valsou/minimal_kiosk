@@ -2,6 +2,10 @@
 
 ![Screenshot example](preview.png)
 
+Possible improvements :
+* in "today" case : show wind data if rain data < 5mm (light rain)
+* simplify configuration
+
 ## 1. Prerequisites
 * Download Raspbian Lite in its latest version (in 2018 : Stretch).
 https://www.raspberrypi.org/downloads/raspbian/
