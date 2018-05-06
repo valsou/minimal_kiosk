@@ -102,14 +102,14 @@ Raspbian Lite est le système d'exploitation que nous allons utilisé. Dérivé 
 Connectez-vous avec le compte par défaut de Raspbian.
 
 Login : `pi`
-Password : `rqspberry`
+Password : `raspberry`
 
-*Note: le mot de passe est bien "rqspberry" et non "raspberry" car le clavier en QWERTY par défaut.*
+*Note: Attention le clavier est en QWERTY !*
 
 #### 2. Clavier
 Nous allons changer la disposition des touches sur la clavier (AZERTY) pour plus de facilité.
 
-Tapez : `sudo rqspi-config`
+Tapez : `sudo raspi-config`
 
 Une fenêtre va apparaître, déplacez-vous avez les flèches du clavier et la touche *Entrée* pour valider.
 
