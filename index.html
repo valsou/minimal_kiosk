@@ -16,14 +16,15 @@
 
 
         <div id="slide">
-            <iframe id="googleSlide" src="" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="background:'yellow'"></iframe>
-            <div id="slideWrapper"></div>
+            <div class="slideWrapper">
+                <iframe id="googleSlide" src="" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="background:'yellow'"></iframe>
+                <div id="slideWrapper"></div>
+            </div>
         </div>
 
         <div id="meteo">
             <div id="currentWeather" class="weatherCard">
-                <h1 id="tempNow">MAINTENANT</h1>
-                <div class="weatherTop main">
+                <h1 id="tempNow">MAINTENANT</h1><div class="weatherTop main">
                     <div id="temperature">
                         <div class="temp"></div>
                         <img class="tempIcon" src="" />
@@ -39,8 +40,7 @@
             </div>
 
             <div id="todayWeather" class="weatherCard">
-                <h1 id="tempAfter">AUJOURD'HUI</h1>
-                <div class="wrapTodayWeather main">
+                <h1 id="tempAfter">AUJOURD'HUI</h1><div class="wrapTodayWeather main">
                     <div id="nextHourWeather" class="todayLine">
                         <div class="nextTime"><span class="value"></span>h</div>
                         <img class="tempIcon" src="" />
@@ -71,9 +71,7 @@
 
             <div id="tomorrowWeather" class="weatherCard">
 
-                <h1>DEMAIN</h1>
-
-                <div class="wrapWeatherSpecial main">
+                <h1>DEMAIN</h1><div class="wrapWeatherSpecial main">
 
                     <div class="morning title">MATIN</div>
                     <div class="morning tempMin"></div>

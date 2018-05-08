@@ -14,14 +14,15 @@ $radius-weather: 8px;
 $cardsTiming : 15s;
 
 html, body {
-    margin: 5px;
+    margin: 0;
     padding: 0;
 }
 
 body {
+    margin: 5px;
     display: grid;
     grid-template-columns: 6fr 1.8fr;
-    grid-template-rows: auto-fit auto-fit;
+    grid-template-rows: auto auto;
     grid-gap: 5px;
     font-family: 'Source Sans Pro', sans-serif;
     background-color: $background-color;
@@ -54,6 +55,8 @@ body {
     grid-template-columns: repeat( 5, auto );
     justify-content: start;
     align-self: center;
+    overflow: hidden;
+    min-width: 0;
 }
 
 #time .seconds { overflow: hidden; }
@@ -64,11 +67,14 @@ body {
 }
 
 #slide {
+
+}
+
+#slide .slideWrapper {
     width: 100%;
     height: 0;
     padding-bottom: 62.5%;
     position: relative;
-    background-color: yellow;
     min-width: 0;
 }
 
@@ -82,11 +88,16 @@ body {
 
 #slideWrapper {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    margin-top: -2px;
-    margin-left: -3px;
-    border-right: 4px solid $background-color;
+    width: calc(100% - 3px);
+    transform: translateX(1px);
+    height: calc(100% - 4px);
+    transform: translateY(0px);
+    // background-color: red;
+    // margin-top: -2px;
+    // margin-left: -3px;
+    border-right: 2px solid $background-color;
+    border-left: 1px solid $background-color;
+    border-top: 2px solid $background-color;
     border-bottom: 3px solid $background-color;
 }
 
