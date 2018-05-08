@@ -1,45 +1,61 @@
+$background-color: rgb(246, 246, 246);
+$currentWeather-color: rgb(32, 203, 126);
+$currentWeather-color-end: rgb(6, 154, 105);
+$currentWeather-sub-color: rgb(219, 244, 238);
+$todayWeather-color: rgb(14, 137, 215);
+$todayWeather-color-end: rgb(24, 185, 207);
+$tomorrowWeather-color: rgb(205, 36, 46);
+$tomorrowWeather-color-end: rgb(200, 19, 73);
+$radius-weather: 8px;
+
 html, body {
-    margin: 0;
+    margin: 5px;
     padding: 0;
 }
 
 body {
-
     display: grid;
-    grid-template-columns: 12.5fr 3.5fr;
-    grid-template-rows: 1fr minmax(auto, max-content) ;
-    grid-gap: 0.5vw;
-    font-family: "Fira Sans", sans-serif;
-    background-color: white;
+    grid-template-columns: 6fr 1.8fr;
+    grid-template-rows: auto-fit auto-fit;
+    grid-gap: 5px;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: $background-color;
 }
 
-/* #date, #time, #slide, #meteo {
-        border: 1px solid black;
-} */
-
 #date {
-    font-weight: 500;
+    font-weight: 900;
     font-size: 5.4vw;
-    /* background-color: black;
-    color: white; */
     text-align: center;
+}
 
+@keyframes colorful {
+    0% { color: rgb(164, 12, 67); }
+    20% { color: rgb(54, 18, 198); }
+    40% { color: rgb(19, 134, 208); }
+    60% { color: rgb(47, 215, 120); }
+    80% { color: rgb(232, 205, 22); }
+    100% { color: rgb(208, 87, 28); }
+}
+
+#date .point {
+    font-size: 6vw;
+    animation: 5s linear 0s infinite alternate colorful;
 }
 
 #time {
     display: grid;
     font-size: 5.5vw;
-    font-weight: 400;
-    grid-template-columns: minmax(auto, max-content) minmax(auto, max-content);
+    font-weight: 600;
+    grid-template-columns: repeat( 5, auto );
+    justify-content: start;
     align-self: center;
 }
 
-#time #seconds {
-    font-weight: 100;
-}
+#time .seconds { overflow: hidden; }
 
-#meteo {
-
+#time .comma {
+    font-weight: 500;
+    animation: 5s linear 0s infinite alternate colorful;
 }
 
 #slide {
@@ -60,64 +76,174 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* background: yellow; */
-    margin-top: -1px;
-    margin-left: -2px;
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
+    margin-top: -2px;
+    margin-left: -3px;
+    border-right: 4px solid $background-color;
+    border-bottom: 3px solid $background-color;
 }
-
-/* @media only screen and (device-aspect-ratio: 16/10)
-{
-
-    body {
-        background-color: black;
-    }
-
-    #meteo {
-        width: 22%;
-    }
-
-} */
 
 .weatherCard {
     width: 100%;
-    background-color: white;
     overflow: hidden;
 }
 
-#currentWeather h1 {
-    background-color: #F59300;
-}
-#todayWeather h1 {
-    background-color: #008FCF;
-}
-#tomorrowWeather h1 {
-    background-color: #213D64;
-}
-
 .weatherCard h1 {
+    display: inline-block;
     font-size: 1.5vw;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 0;
     margin-top: 0;
-    padding: 2px 0 2px 5px;
+    padding: 2px 10px;
     color: white;
 }
 
+$weather-list: (
+    currentWeather: $currentWeather-color,
+    todayWeather: $todayWeather-color,
+    tomorrowWeather: $tomorrowWeather-color
+);
+
+@each $id, $color in $weather-list {
+
+    ##{$id} h1 {
+        background-color: $color;
+        border-top-left-radius: $radius-weather;
+        border-top-right-radius: $radius-weather;
+    }
+
+    ##{$id}.weatherCard .main {
+        border: 4px solid $color;
+        border-bottom-left-radius: $radius-weather;
+        border-bottom-right-radius: $radius-weather;
+        border-top-right-radius: $radius-weather;
+    }
+}
+
+#currentWeather h1 {
+    animation: 3s linear 0s infinite alternate colorful-currentWeather1;
+}
+#currentWeather.weatherCard .main {
+    animation: 3s linear 0s infinite alternate colorful-currentWeather2;
+}
+
+@keyframes colorful-currentWeather1 {
+    0% { background-color: $currentWeather-color; }
+    100% { background-color: $currentWeather-color-end; }
+}
+
+@keyframes colorful-currentWeather2 {
+    0% { border-color: $currentWeather-color; }
+    100% { border-color: $currentWeather-color-end; }
+}
+
+#todayWeather h1,
+#todayWeather .todayLine .nextTime {
+    animation: 3s linear 0s infinite alternate colorful-todayWeather1;
+}
+#todayWeather.weatherCard .main {
+    animation: 3s linear 0s infinite alternate colorful-todayWeather2;
+}
+
+@keyframes colorful-todayWeather1 {
+    0% { background-color: $todayWeather-color; }
+    100% { background-color: $todayWeather-color-end; }
+}
+
+@keyframes colorful-todayWeather2 {
+    0% { border-color: $todayWeather-color; }
+    100% { border-color: $todayWeather-color-end; }
+}
+
+#tomorrowWeather h1 {
+    animation: 3s linear 0s infinite alternate colorful-tomorrowWeather1;
+}
+#tomorrowWeather.weatherCard .main {
+    animation: 3s linear 0s infinite alternate colorful-tomorrowWeather2;
+}
+@keyframes colorful-tomorrowWeather1 {
+    0% { background-color: $tomorrowWeather-color; }
+    100% { background-color: $tomorrowWeather-color-end; }
+}
+
+@keyframes colorful-tomorrowWeather2 {
+    0% { border-color: $tomorrowWeather-color; }
+    100% { border-color: $tomorrowWeather-color-end; }
+}
+
+#currentWeather .tempText {
+    font-size: 1.4vw;
+    font-weight: 600;
+    background-color: $currentWeather-sub-color;
+    width: 100%;
+    text-align: center;
+    padding: 0.2vw 0;
+}
+
+#todayWeather .main {
+    display: grid;
+    grid-gap: 5px;
+    padding: 5px 0;
+}
+
+#todayWeather .todayLine {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    align-items: center;
+    text-align: center;
+    grid-gap: 5px;
+}
+
+#todayWeather .todayLine .nextTime {
+    background-color: $todayWeather-color;
+    color: white;
+    font-size: 2vw;
+    font-weight: 600;
+    padding-right: 4px;
+    border-top-right-radius: $radius-weather;
+    border-bottom-right-radius: $radius-weather;
+}
+
+#todayWeather .todayLine .temp {
+    font-size: 2.8vw;
+    font-weight: 900;
+    color: rgb(61, 61, 61);
+}
+
+#todayWeather .todayLine img {
+    width: 4.8vw;
+    padding: 5px;
+}
+
+#todayWeather .todayLine .more {
+    font-size: 1.2vw;
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+#todayWeather .todayLine .more .rain .value {
+    font-size: 2vw;
+}
+
+#todayWeather .todayLine .more img {
+    width: 1.6vw;
+    padding-right: 5px;
+}
+
+
+
+
 #todayWeather,
 #tomorrowWeather {
-    margin-top: 1vw;
+    margin-top: 0.5vw;
 }
 
 #tomorrowAMWeather,
 #tomorrowPMWeather {
     width: 50%;
-}
-
-#todayWeather .more img {
-    width: 1.4vw;
-    padding-right: 0.3vw;
 }
 
 #tomorrowAMWeather {
@@ -143,131 +269,93 @@ body {
 	align-content: stretch;
 }
 
-#tomorrowWeather .specialTomorrow {
+#tomorrowWeather .main {
+    display: grid;
+    grid-template-areas:    "morning afternoon"
+                            "morningTempMin afternoonTempMin"
+                            "morningTempIcon afternoonTempIcon"
+                            "morningTempMax afternoonTempMax";
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
     text-align: center;
 }
 
-#tomorrowWeather .tempIcon {
-    height: 5vw;
-    padding: 0.2vw 0;
+#tomorrowWeather .morning.title { grid-area: morning; }
+#tomorrowWeather .morning.tempMin { grid-area: morningTempMin; }
+#tomorrowWeather .morning.tempIcon { grid-area: morningTempIcon; }
+#tomorrowWeather .morning.tempMax { grid-area: morningTempMax; }
+#tomorrowWeather .afternoon.title { grid-area: afternoon; }
+#tomorrowWeather .afternoon.tempMin { grid-area: afternoonTempMin; }
+#tomorrowWeather .afternoon.tempIcon { grid-area: afternoonTempIcon; }
+#tomorrowWeather .afternoon.tempMax { grid-area: afternoonTempMax; }
+
+#tomorrowWeather .morning.title,
+#tomorrowWeather .afternoon.title {
+    font-size: 1.4vw;
+    background-color: rgb(212, 212, 212);
+    color: rgb(131, 131, 131);
+    text-align: center;
+    font-weight: 600;
 }
+
+#tomorrowWeather .morning.tempIcon,
+#tomorrowWeather .afternoon.tempIcon {
+    max-width: 5vw;
+    justify-self: center;
+}
+
+#tomorrowWeather .morning.tempMin,
+#tomorrowWeather .morning.tempMax,
+#tomorrowWeather .afternoon.tempMin,
+#tomorrowWeather .afternoon.tempMax {
+    font-size: 2.5vw;
+    font-weight: 600;
+}
+
 
 #tomorrowWeather .period {
     font-size: 1.4vw;
     padding: 2px 0 2px 5px;
-    font-weight: 500;
+    font-weight: 600;
     background-color: #DBDBDB;
-    color: #4F4F4F;
+    color: rgb(82, 82, 82);
 }
 
-#tomorrowWeather .tempMin,
-#tomorrowWeather .tempMax {
-    text-align: center;
-    font-size: 2.4vw;
-    font-weight: 700;
-}
-
-#tomorrowWeather .tempMin {
-    color: #b3b3b3;
-    font-weight: 500;
-}
-
-.wrapTodayWeather {
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: stretch;
-	align-content: stretch;
-}
-
-.todayLine {
-    display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
-    padding: 0.5vw;
-}
-
-.todayLine .tempIcon {
-    height: 4.4vh;
-}
-
-.todayLine .nextTime {
-    color: white;
-    font-size: 1.5vw;
-    font-weight: 500;
-    background-color: #0f587a;
-    padding: 0.2vw 0.4vw;
-}
-
-.todayLine .nextTime .value {
-    font-weight: 500;
-    font-size: 1.8vw;
-}
-
-.todayLine .temp {
-    font-size: 2.8vw;
-    font-weight: 500;
-}
-
-.todayLine .rain {
-    font-size: 1.2vw;
-    font-weight: 500;
-}
-
-.todayLine .rain .value {
-    font-size: 1.8vw;
-}
-
-.todayLine.greyed {
-    background-color: #f5f5f5;
-}
 
 .weatherCard .weatherTop  {
     background-color: white;
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
+    display: grid;
+    grid-template-rows: repeat(3, minmax(auto, max-content));
+    align-items: center;
+}
+
+#temperature {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(auto, max-content));
+    align-items: center;
+    justify-content: center;
 }
 
 .weatherCard .weatherTop .temp {
     font-size: 6vw;
-    font-weight: 500;
-}
-
-.weatherCard .weatherTop .tempText {
-    font-size: 1.4vw;
-    font-weight: 400;
-    background-color: #f5f5f5;
-    width: 100%;
-    text-align: center;
-    padding: 0.2vw 0;
+    font-weight: 600;
 }
 
 .weatherCard .weatherTop .tempIcon {
-    height: 8vh;
+    height: 8.2vh;
 }
 
 .weatherCard .weatherBottom {
     background-color: white;
     color: black;
-    display: flex;
-    flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: stretch;
-	align-content: stretch;
-    padding: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 5px 0;
 }
 
 .weatherCard .weatherBottom img {
-    height: 2.8vh;
+    height: 2vw;
     padding-right: 0.3vw;
 }
 
@@ -285,14 +373,4 @@ body {
 
 .weatherCard .weatherBottom .more .value {
     font-size: 1.8vw;
-}
-
-#temperature {
-    display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-around;
-	align-items: center;
-	align-content: stretch;
-    padding: 0.5vw 0;
 }
