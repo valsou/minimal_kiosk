@@ -1,12 +1,17 @@
 $background-color: rgb(246, 246, 246);
+
 $currentWeather-color: rgb(32, 203, 126);
 $currentWeather-color-end: rgb(6, 154, 105);
-$currentWeather-sub-color: rgb(219, 244, 238);
+$currentWeather-sub-color: rgb(241, 241, 241);
+
 $todayWeather-color: rgb(14, 137, 215);
 $todayWeather-color-end: rgb(24, 185, 207);
+
 $tomorrowWeather-color: rgb(205, 36, 46);
 $tomorrowWeather-color-end: rgb(200, 19, 73);
+
 $radius-weather: 8px;
+$cardsTiming : 15s;
 
 html, body {
     margin: 5px;
@@ -63,6 +68,8 @@ body {
     height: 0;
     padding-bottom: 62.5%;
     position: relative;
+    background-color: yellow;
+    min-width: 0;
 }
 
 #slide iframe {
@@ -70,6 +77,7 @@ body {
     width: 100%;
     height: 100%;
     left: 0; top: 0;
+    min-width: 0;
 }
 
 #slideWrapper {
@@ -126,54 +134,60 @@ $weather-list: (
 }
 
 #currentWeather h1 {
-    animation: 3s linear 0s infinite alternate colorful-currentWeather1;
+    animation: $cardsTiming linear 0s infinite alternate colorful-currentWeather1;
 }
 #currentWeather.weatherCard .main {
-    animation: 3s linear 0s infinite alternate colorful-currentWeather2;
+    animation: $cardsTiming linear 0s infinite alternate colorful-currentWeather2;
 }
 
 @keyframes colorful-currentWeather1 {
     0% { background-color: $currentWeather-color; }
-    100% { background-color: $currentWeather-color-end; }
+    50% { background-color: $todayWeather-color; }
+    100% { background-color: $tomorrowWeather-color; }
 }
 
 @keyframes colorful-currentWeather2 {
     0% { border-color: $currentWeather-color; }
-    100% { border-color: $currentWeather-color-end; }
+    50% { border-color: $todayWeather-color; }
+    100% { border-color: $tomorrowWeather-color; }
 }
 
 #todayWeather h1,
 #todayWeather .todayLine .nextTime {
-    animation: 3s linear 0s infinite alternate colorful-todayWeather1;
+    animation: $cardsTiming linear 0s infinite alternate colorful-todayWeather1;
 }
 #todayWeather.weatherCard .main {
-    animation: 3s linear 0s infinite alternate colorful-todayWeather2;
+    animation: $cardsTiming linear 0s infinite alternate colorful-todayWeather2;
 }
 
 @keyframes colorful-todayWeather1 {
     0% { background-color: $todayWeather-color; }
-    100% { background-color: $todayWeather-color-end; }
+    50% { background-color: $tomorrowWeather-color; }
+    100% { background-color: $currentWeather-color; }
 }
 
 @keyframes colorful-todayWeather2 {
     0% { border-color: $todayWeather-color; }
-    100% { border-color: $todayWeather-color-end; }
+    50% { border-color: $tomorrowWeather-color; }
+    100% { border-color: $currentWeather-color; }
 }
 
 #tomorrowWeather h1 {
-    animation: 3s linear 0s infinite alternate colorful-tomorrowWeather1;
+    animation: $cardsTiming linear 0s infinite alternate colorful-tomorrowWeather1;
 }
 #tomorrowWeather.weatherCard .main {
-    animation: 3s linear 0s infinite alternate colorful-tomorrowWeather2;
+    animation: $cardsTiming linear 0s infinite alternate colorful-tomorrowWeather2;
 }
 @keyframes colorful-tomorrowWeather1 {
     0% { background-color: $tomorrowWeather-color; }
-    100% { background-color: $tomorrowWeather-color-end; }
+    50% { background-color: $currentWeather-color; }
+    100% { background-color: $todayWeather-color; }
 }
 
 @keyframes colorful-tomorrowWeather2 {
     0% { border-color: $tomorrowWeather-color; }
-    100% { border-color: $tomorrowWeather-color-end; }
+    50% { border-color: $currentWeather-color; }
+    100% { border-color: $todayWeather-color; }
 }
 
 #currentWeather .tempText {
