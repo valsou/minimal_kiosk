@@ -44,7 +44,7 @@ body {
 
 #time {
     display: grid;
-    font-size: 5.5vw;
+    font-size: 6vw;
     font-weight: 600;
     grid-template-columns: repeat( 5, auto );
     justify-content: start;
@@ -80,6 +80,12 @@ body {
     margin-left: -3px;
     border-right: 4px solid $background-color;
     border-bottom: 3px solid $background-color;
+}
+
+#meteo {
+    display: grid;
+    grid-template-rows: repeat(3, max-content);
+    grid-gap: 10px;
 }
 
 .weatherCard {
@@ -204,13 +210,12 @@ $weather-list: (
 }
 
 #todayWeather .todayLine .temp {
-    font-size: 2.8vw;
-    font-weight: 900;
-    color: rgb(61, 61, 61);
+    font-size: 2.4vw;
+    font-weight: 600;
 }
 
 #todayWeather .todayLine img {
-    width: 4.8vw;
+    max-width: 4vw;
     padding: 5px;
 }
 
@@ -231,42 +236,6 @@ $weather-list: (
 #todayWeather .todayLine .more img {
     width: 1.6vw;
     padding-right: 5px;
-}
-
-
-
-
-#todayWeather,
-#tomorrowWeather {
-    margin-top: 0.5vw;
-}
-
-#tomorrowAMWeather,
-#tomorrowPMWeather {
-    width: 50%;
-}
-
-#tomorrowAMWeather {
-    border-right: 1px solid #e6e6e6;
-}
-
-#tomorrowWeather .wrapWeatherSpecial {
-    display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: stretch;
-	align-content: stretch;
-    overflow: hidden;
-}
-
-#tomorrowWeather .weatherSpecial {
-    display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: flex-start;
-	align-items: stretch;
-	align-content: stretch;
 }
 
 #tomorrowWeather .main {
@@ -301,7 +270,7 @@ $weather-list: (
 
 #tomorrowWeather .morning.tempIcon,
 #tomorrowWeather .afternoon.tempIcon {
-    max-width: 5vw;
+    max-width: 4vw;
     justify-self: center;
 }
 
@@ -309,7 +278,7 @@ $weather-list: (
 #tomorrowWeather .morning.tempMax,
 #tomorrowWeather .afternoon.tempMin,
 #tomorrowWeather .afternoon.tempMax {
-    font-size: 2.5vw;
+    font-size: 2vw;
     font-weight: 600;
 }
 
@@ -335,15 +304,16 @@ $weather-list: (
     grid-template-columns: repeat(2, minmax(auto, max-content));
     align-items: center;
     justify-content: center;
+    padding: 5px 0;
 }
 
-.weatherCard .weatherTop .temp {
-    font-size: 6vw;
+#currentWeather .temp {
+    font-size: 5vw;
     font-weight: 600;
 }
 
-.weatherCard .weatherTop .tempIcon {
-    height: 8.2vh;
+#currentWeather .tempIcon {
+    max-width: 6vw;
 }
 
 .weatherCard .weatherBottom {
