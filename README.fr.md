@@ -1,6 +1,6 @@
 # Minimal Kiosk
 
-![Screenshot example](preview.png)
+![Screenshot example](https://raw.githubusercontent.com/valsou/minimal_kiosk/master/preview.png)
 
 |Révision|Date|Modification|Auteur|
 |-----|-----|-----|-----|
@@ -95,7 +95,7 @@ Raspbian Lite est le système d'exploitation que nous allons utilisé. Dérivé 
 1. Téléchargez [Etcher.io](https://etcher.io/) pour votre OS (macOS / Windows / Linux). Attention à l'architecture CPU (32bits ou 64bits) !
 2. Installez Etcher ou lancez-le si vous avec choisi la version portable.
 3. Choisissez l'image de Raspbian Lite, choisissez la partition à écrire (carte microSD) et cliquez sur **Flash!**.
-![Screenshot example](img/etcher.jpg)
+![Screenshot example](https://raw.githubusercontent.com/valsou/minimal_kiosk/master/img/etcher.jpg)
 4. Retirez la carte microSD et insérez-là dans le Raspberry Pi.
 5. Branchez le câble ethernet, le clavier USB et l'écran au Raspberry Pi puis branchez l'alimentation.
 
