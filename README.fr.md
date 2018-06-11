@@ -346,7 +346,7 @@ Rendez-vous sur [Google Slide](https://docs.google.com/presentation/?usp=mkt_sli
 L'affichage du slide est mis à jour toutes les 5 minutes.
 
 #### 6. Backup (**en construction**)
-A partir du moment où vous avez plusieurs télévisions, il peut être intéressant de mettre en place des backup.
+A partir du moment où vous avez plusieurs télévisions, il peut être intéressant de mettre en place des backup ou de tout simplement copier une carte existante vers une autre pour gagner du temps.
 
 Nous allons voir comment créer l'image d'un Raspberry Pi correctement configuré. Puis comment écrire cette image sur une nouvelle carte microSD.
 
@@ -354,6 +354,19 @@ Nous allons voir comment créer l'image d'un Raspberry Pi correctement configur�
 **Vous aurez besoin d'un lecteur de carte microSD USB. Branchez-le au Raspberry Pi.**
 
 ---
+
+##### a. Copie microSD > microSD (intégrale)
+**Attention ! Etant donné qu'une microSD diffère d'un fabricant à un autre, l'espace libre peut ne pas être le même. Si vous choisissez de copier une carte microSD vers une autre, choisissez des cartes de même marque/modèle et espace de stockage.**
+
+-> Utiliser Win32DiskImager
+
+##### b. Copie microSD > microSD (compressée)
+
+-> Utiliser rpi-clone
+
+##### c. Copie microSD > Clé USB (compressée)
+
+-> Utiliser rpi-clone
 
 Nous allons télécharger le logiciel *rpi-clone*.
 
