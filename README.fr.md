@@ -2,6 +2,10 @@
 
 ![Screenshot example](preview.png)
 
+|Révision|Date|Modification|Auteur|
+|-----|-----|-----|-----|
+|1.0|11/06/2018|Création|Valentin MEZIN|
+
 **Sommaire**
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
@@ -355,21 +359,36 @@ Nous allons voir comment créer l'image d'un Raspberry Pi correctement configur�
 
 ---
 
-##### a. Copie microSD > microSD (intégrale)
+-> Copie microSD > microSD (intégrale)
+
 **Attention ! Etant donné qu'une microSD diffère d'un fabricant à un autre, l'espace libre peut ne pas être le même. Si vous choisissez de copier une carte microSD vers une autre, choisissez des cartes de même marque/modèle et espace de stockage.**
 
--> Utiliser Win32DiskImager
++ Brancher votre lecteur de carte microSD à votre PC en insérant le carte microSD que vous souhaitez copier.
++ Téléchargez [Win32Disk Imager](https://sourceforge.net/projects/win32diskimager/) sur votre PC.
++ Installez et lancez le logiciel
++ Paramétrez correctement le logiciel :
+Périphérique = la lettre de votre microSD (exemple : :J)
+Fichier image = la destination du fichier (copie de la carte) en .img
++ Cliquez sur **Lire**
++ Voilà !
 
-##### b. Copie microSD > microSD (compressée)
+---
 
--> Utiliser rpi-clone
-
-##### c. Copie microSD > Clé USB (compressée)
-
--> Utiliser rpi-clone
+-> Copie microSD > microSD (compressée)
 
 Nous allons télécharger le logiciel *rpi-clone*.
+Branchez un clavier au Raspberry Pi.
+Branchez votre lecteur de carte microSD en y insérant la carte destinataire de la copie.
 
 + Tapez : `cd /home/mounier`
 + Tapez : `git clone https://github.com/billw2/rpi-clone.git`
-+ Tapez : `sudo cp rpi-clone rpi-clone-setup /usb/local/sbin`
++ Tapez : `cd rpi-clone`
++ Tapez : `sudo cp rpi-clone rpi-clone-setup /usr/local/sbin`
+
++ Trouvez le label de votre carte microSD en tapant : `lsblk`
+Normalement le label devrait `sda` ou `sdb`.
+
++ Tapez : `sudo rpi-clone sda`
++ Suivez les instructions. A la fin du processus tapez sur `Entrée`, la carte microSD va se "démonter" et vous pourrez la brancher sur votre Raspberry.
+
+Si vous avez besoin de modifier l'adresse du Google Slide reportez-vous à **l'étape 10** de ce tutoriel dans la rubrique **Première installation**.
