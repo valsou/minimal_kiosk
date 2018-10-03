@@ -298,7 +298,7 @@ function refreshMeteo() {
     var request = new XMLHttpRequest();
     //
 
-    request.open('GET', 'https://api.met.no/weatherapi/locationforecast/1.9/?lat='+LATITUDE+'&lon='+LONGITUDE+'&msl='+ELEVATION, true);
+    request.open('GET', 'https://api.met.no/weatherapi/locationforecast/1.9/.json?lat='+LATITUDE+'&lon='+LONGITUDE+'&msl='+ELEVATION, true);
     request.setRequestHeader('Accept', 'application/json');
     request.onload = function () {
 
