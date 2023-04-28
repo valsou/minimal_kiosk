@@ -32,7 +32,7 @@
                     <div class="tempText"></div>
                     <div class="weatherBottom">
                         <div class="more"><img src="icons/humidity.svg" /><span class="humidity"><span class="value"></span>%</span></div>
-                        <div class="more"><img src="icons/wind.svg" /><span class="windSpeed"><span class="value"></span>KM/H</span></div>
+                        <div class="more"><img src="icons/wind.svg" /><span class="windSpeed"><span class="value"></span>M/S</span></div>
                         <div class="more"><img src="icons/rain.svg" /><span class="rain"><span class="value"></span>MM</span></div>
                     </div>
                 </div>
@@ -90,23 +90,9 @@
 
 
 <script src="js/sun.js"></script>
+<script src="js/moment.js"></script>
 <script src="js/config.js"></script>
 <script>
-class Weather {
-	constructor(from, to, temp, tempMin, tempMax, windSpeed, humidity, rain, symbol, tempText) {
-		this.from = from;
-		this.to = to;
-		this.temp = temp;
-		this.tempMin = tempMin;
-		this.tempMax = tempMax;
-		this.windSpeed = windSpeed;
-        this.humidity = humidity;
-		this.rain = rain;
-		this.symbol = symbol;
-		this.tempText = tempText;
-	}
-}
-
 function translateDate(date, lang = "fr") {
 
     var jours = {"fr": {
@@ -142,63 +128,6 @@ function translateDate(date, lang = "fr") {
     return dateText;
 }
 
-function translateTempText(symbol, lang = "fr") {
-
-	var translateTempText = {"fr":
-        {
-        1: "Ensoleillé",
-    	2: "Légèrement couvert",
-    	3: "Partiellement nuageux",
-    	4: "Nuageux",
-    	5: "Ensoleillé avec pluie légère",
-    	6: "Ensoleillé avec tonnerre",
-    	7: "Ensoleillé avec neige fondue",
-    	8: "Ensoleillé avec neige",
-    	9: "Pluie légère",
-    	10: "Pluvieux",
-    	11: "Orage pluvieux",
-    	12: "Neige fondue",
-    	13: "Neigeux",
-    	14: "Enneigé avec tonnerre",
-    	15: "Brumeux",
-    	20: "Ensoleillé avec grêle",
-    	21: "Neigeux avec tonnerre",
-    	22: "Pluie légère et orageuse",
-    	23: "Grésil orageux",
-    	24: "Ensoleillé et bruine orageuse",
-    	25: "Ensoleillé et orage",
-    	26: "Ensoleillé et léger grésil orageux",
-    	27: "Ensoleillé et gros grésil orageux",
-    	28: "Ensoleillé et léger orage neigeux",
-    	29: "Ensoleillé et gros orage neigeux",
-    	30: "Bruine orageuse",
-    	31: "Léger grésil orageux",
-    	32: "Gros grésil orageux",
-    	33: "Léger orage neigeux",
-    	34: "Gros orage neigeux",
-    	40: "Ensoleillé et bruineux",
-    	41: "Ensoleillé et pluvieux",
-    	42: "Ensoleillé avec léger grésil",
-    	43: "Ensoleillé avec grésil",
-    	44: "Ensoleillé avec petit manteau neigeux",
-    	45: "Ensoleillé avec fortes chutes de neige",
-    	46: "Bruineux",
-    	47: "Léger grésil",
-    	48: "Grésil",
-    	49: "Petit manteau neigeux",
-    	50: "Fortes chutes de neige"
-        }
-	};
-
-	return translateTempText[lang][symbol];
-
-}
-
-function speedMstoKmh(ms) {
-	var kmh = ms * 3.6;
-	return kmh;
-}
-
 function getDateTime() {
 	// on recupere la date
     var date = new Date();
@@ -216,7 +145,7 @@ function getDateTime() {
 
     // Update weather at xx:01 or xx:40 every hour.
     if ((date.getMinutes() == 0 && date.getSeconds() == 0) || (date.getMinutes() == 30 && date.getSeconds() == 0)) {
-        refreshMeteo();
+        refreshWeather();
     }
 
     setTimeout(getDateTime, 1000); // mise à jour du contenu "timer" toutes les secondes
@@ -231,41 +160,6 @@ function setTimeTo(date, hours = 0, minutes = 0, seconds = 0, milliseconds = 0) 
 	return date;
 }
 
-function setWeatherIcon(child, sym, from) {
-
-	date = new Date(from);
-    var rise = date.sunrise(LATITUDE,LONGITUDE); // Sunrise time at Grenoble, France
-    var set = date.sunset(LATITUDE,LONGITUDE); // Sunset time at Grenoble, France
-
-    var sunrise = setTimeTo(rise, rise.getUTCHours(), rise.getUTCMinutes());
-    var sunset = setTimeTo(set, set.getUTCHours(), set.getUTCMinutes());
-
-    var symbol = ("0" + sym).slice(-2);
-    var isNight = "";
-
-    // Icons without day/night alternatives
-    var simpleIcons = ["4","9","10","11","12","13","14","15","22","23","30","31","32","33","34","46","47","48","49","50"];
-
-    if (date.getTime() <= sunrise.getTime() || date.getTime() >= sunset.getTime()) {
-        isNight = "n";
-    } else {
-        isNight = "d";
-    }
-
-    if (child == "tomorrowAMWeather" || child == "tomorrowPMWeather") {
-        isNight = "d";
-    }
-
-    // If weather symbol doesn't have day/night alternatives, set nothing to the night parameter
-    if (simpleIcons.includes(sym)) {
-        isNight = "";
-    }
-
-    return document.querySelector(child).src = "icons/forecast/"+symbol+isNight+".png";
-    // return document.getElementById(child).getElementsByClassName('tempIcon')[0].src = "icons/forecast/"+symbol+isNight+".png";
-}
-
-
 function setTimeStop(diff, initHour, offset = 0) {
     var now = new Date();
     now.setUTCHours( now.getUTCHours() + offset );
@@ -275,179 +169,132 @@ function setTimeStop(diff, initHour, offset = 0) {
     return timestop;
 }
 
-function addDay(date, diff) {
-    date.setUTCDate( date.getUTCDate() + diff );
-    return date;
+// Forecast Object
+const Forecast = {
+    temperature: 0,
+    humidity: 0,
+    precipitation: 0,
+    wind: 0,
+    symbol: 'clearsky',
+    update(json_object) {
+        this.temperature = json_object.data.instant.details.air_temperature;
+        this.humidity = json_object.data.instant.details.relative_humidity;
+        this.precipitation = json_object.data.next_1_hours.details.precipitation_amount;
+        this.wind = json_object.data.instant.details.wind_speed;
+        this.symbol = json_object.data.next_1_hours.summary.symbol_code;
+    }
 }
 
-var scope = this;
-var currentWeather = new Weather();
-var nextHourWeather = new Weather();
-var twoHourWeather = new Weather();
-var threeHourWeather = new Weather();
-var tomorrowAMWeather = new Weather();
-var tomorrowPMWeather = new Weather();
+const ForecastNextDay = {
+    min_temperature: 0,
+    max_temperature: 0,
+    symbol: 'clearsky',
+    update(json_object) {
+        this.min_temperature = json_object.data.next_6_hours.details.air_temperature_min;
+        this.max_temperature = json_object.data.next_6_hours.details.air_temperature_max;
+        this.symbol = json_object.data.next_6_hours.summary.symbol_code;
+    }
+}
 
-function refreshMeteo() {
+const forecast_now = Object.create(Forecast);
+const forecast_in_one = Object.create(Forecast);
+const forecast_in_two = Object.create(Forecast);
+const forecast_in_three = Object.create(Forecast);
 
-	var date = new Date();
+const forecast_next_morning = Object.create(ForecastNextDay);
+const forecast_next_afternoon = Object.create(ForecastNextDay);
 
-    var offset = Math.abs(date.getTimezoneOffset() / 60);
+function getNorwegianMETAPIJson() {
+    const request = new Request(`https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=${LATITUDE}&lon=${LONGITUDE}&altitude=${ELEVATION}`);
+    return fetch(request)
+        .then((response) => response.json())
+        .then((json) => json.properties.timeseries) // Return only the timeseries data (forecasts for each hour)
+        .catch(e => console.error("Unable to fetch API."))
+}
 
-    // Using Norwegian Meteo API
-    var request = new XMLHttpRequest();
-    //
-
-    request.open('GET', 'https://api.met.no/weatherapi/locationforecast/1.9/.json?lat='+LATITUDE+'&lon='+LONGITUDE+'&msl='+ELEVATION, true);
-    request.setRequestHeader('Accept', 'application/json');
-    request.onload = function () {
-
-      // Begin accessing JSON data here
-
-      if (request.status >= 200 && request.status < 400) {
-
-    	var from = new Array();
-    	var to = new Array();
-    	var weatherData = new Array();
-
-      	result = JSON.parse(this.response);
-      	data = result.product.time;
-
-    	for (var i=0; i < data.length; i++) {
-
-    		from[i] = new Date(data[i].from);
-    		to[i] = new Date(data[i].to);
-
-            var retrieve = {
-                0: {
-                    "id": "currentWeather",
-                    "first": setTimeStop(0),
-                    "second": setTimeStop(1),
-                    "stable": false
-                },
-                1: {
-                    "id": "nextHourWeather",
-                    "first": setTimeStop(1),
-                    "second": setTimeStop(2),
-                    "nextHour": true
-                },
-                2: {
-                    "id": "twoHourWeather",
-                    "first": setTimeStop(2),
-                    "second": setTimeStop(3),
-                    "nextHour": true
-                },
-                3: {
-                    "id": "threeHourWeather",
-                    "first": setTimeStop(3),
-                    "second": setTimeStop(4),
-                    "nextHour": true
-                },
-                4: {
-                    "id": "tomorrowAMWeather",
-                    "first": addDay(setTimeStop(0, 6 - offset, offset), 1),
-                    "second": addDay(setTimeStop(0, 12 - offset, offset), 1),
-                    "exit": true
-                },
-                5: {
-                    "id": "tomorrowPMWeather",
-                    "first": addDay(setTimeStop(0, 12 - offset, offset), 1),
-                    "second": addDay(setTimeStop(0, 18 - offset, offset), 1),
-                    "exit": true
-                }
-            };
-
-            if (nextHourWeather.from === retrieve[0].first && nextHourWeather.to === retrieve[0].second) {
-                currentWeather = Object.assign(currentWeather, nextHourWeather);
-                retrieve[0].stable = true;
-            }
-
-            for (var j=0; j < Object.keys(retrieve).length; j++) {
-
-                if (retrieve[j].exit == true) {
-
-                    if (from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].second.getTime()) {
-                        scope[retrieve[j].id].from = data[i].from;
-                        scope[retrieve[j].id].to = data[i].to;
-                        scope[retrieve[j].id].tempMin = data[i].location.minTemperature.value;
-                        scope[retrieve[j].id].tempMax = data[i].location.maxTemperature.value;
-                        scope[retrieve[j].id].symbol = data[i].location.symbol.number;
-                    }
-                }
-                else if ((from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].second.getTime()) && retrieve[j].stable != true) {
-                    scope[retrieve[j].id].from = data[i].from;
-                    scope[retrieve[j].id].to = data[i].to;
-                    scope[retrieve[j].id].rain = data[i].location.precipitation.value;
-                    scope[retrieve[j].id].symbol = data[i].location.symbol.number;
-                    scope[retrieve[j].id].tempText = data[i].location.symbol.id;
-                }
-                else if ((from[i].getTime() === retrieve[j].first.getTime() && to[i].getTime() === retrieve[j].first.getTime()) && retrieve[j].stable != true) {
-                    scope[retrieve[j].id].temp = data[i].location.temperature.value;
-                    scope[retrieve[j].id].windSpeed = data[i].location.windSpeed.mps;
-                    scope[retrieve[j].id].humidity = data[i].location.humidity.value;
-                }
-
-            }
+function findCurrentIndex(forecast_array) {
+    let current_time = moment().local().format('YYYY/MM/DD HH:00')
+    for (let i = 0; i < forecast_array.length; i++) {
+        if (moment(forecast_array[i].time).local().format('YYYY/MM/DD HH:00') == current_time) {
+            return i;
         }
+    }
+}
 
-        // First update of weather. If currentWeather is undefined, assign data of nextHourWeather
-        if (typeof currentWeather.temp == "undefined") {
-            currentWeather = Object.assign(currentWeather, nextHourWeather);
+function findNextMorningIndex(forecast_array) {
+    let current_time = moment().local().add(1, 'day').hour(6).format('YYYY/MM/DD HH:00')
+    for (let i = 0; i < forecast_array.length; i++) {
+        if (moment(forecast_array[i].time).local().format('YYYY/MM/DD HH:00') == current_time) {
+            return i;
         }
+    }
+}
 
-        // console.log("Météo mise à jour : "+date.toUTCString());
-        // console.log("Fichier créé : "+result.created);
-        // console.log("Next run : "+result.meta.model.nextrun);
-        // console.log("currentWeather");
-        // console.log(currentWeather);
-        // console.log("nextHourWeather");
-        // console.log(nextHourWeather);
-        // console.log("twoHourWeather");
-        // console.log(twoHourWeather);
-        // console.log("threeHourWeather");
-        // console.log(threeHourWeather);
-        // console.log("tomorrowAMWeather");
-        // console.log(tomorrowAMWeather);
-        // console.log("tomorrowPMWeather");
-        // console.log(tomorrowPMWeather);
-        // console.log("*************************");
+function findNextAfternoonIndex(forecast_array) {
+    let current_time = moment().local().add(1, 'day').hour(12).format('YYYY/MM/DD HH:00')
+    for (let i = 0; i < forecast_array.length; i++) {
+        if (moment(forecast_array[i].time).local().format('YYYY/MM/DD HH:00') == current_time) {
+            return i;
+        }
+    }
+}
 
-        setWeatherIcon("#currentWeather .tempIcon", currentWeather.symbol, currentWeather.from);
-    	document.getElementById('currentWeather').getElementsByClassName('tempText')[0].innerHTML = translateTempText(currentWeather.symbol);
-    	document.getElementById('currentWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(currentWeather.temp)+"°";
-    	document.getElementById('currentWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(currentWeather.rain);
-        document.getElementById('currentWeather').getElementsByClassName('humidity')[0].getElementsByClassName('value')[0].innerHTML = Math.round(currentWeather.humidity);
-    	document.getElementById('currentWeather').getElementsByClassName('windSpeed')[0].getElementsByClassName('value')[0].innerHTML = Math.round(speedMstoKmh(currentWeather.windSpeed), 0);
+function refreshWeatherUI() {
+    var date = new Date()
 
-        setWeatherIcon("#nextHourWeather .tempIcon", nextHourWeather.symbol, nextHourWeather.from);
-    	document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(nextHourWeather.temp)+"°";
-    	document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(nextHourWeather.rain);
-        document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(nextHourWeather.from).getHours()).slice(-2);
+    document.querySelector("#currentWeather .tempIcon").src = `img/weathericons/png/${forecast_now.symbol}.png`;
+    document.getElementById('currentWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(forecast_now.temperature)+"°";
+    document.getElementById('currentWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = forecast_now.precipitation;
+    document.getElementById('currentWeather').getElementsByClassName('humidity')[0].getElementsByClassName('value')[0].innerHTML = Math.round(forecast_now.humidity);
+    document.getElementById('currentWeather').getElementsByClassName('windSpeed')[0].getElementsByClassName('value')[0].innerHTML = Math.round(forecast_now.wind);
 
-        setWeatherIcon("#twoHourWeather .tempIcon", twoHourWeather.symbol, twoHourWeather.from);
-    	document.getElementById('twoHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(twoHourWeather.temp)+"°";
-    	document.getElementById('twoHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(twoHourWeather.rain);
-        document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(twoHourWeather.from).getHours()).slice(-2);
+    let hour_plus_one = moment(date).add(1, 'hour');
+    document.querySelector("#nextHourWeather .tempIcon").src = `img/weathericons/png/${forecast_in_one.symbol}.png`;
+    document.getElementById('nextHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(forecast_in_one.temperature)+"°";
+    document.getElementById('nextHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(forecast_in_one.precipitation);
+    document.getElementById('nextHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = (hour_plus_one.hour()).toString().padStart(2,0);
 
-        setWeatherIcon("#threeHourWeather .tempIcon", threeHourWeather.symbol, threeHourWeather.from);
-    	document.getElementById('threeHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(threeHourWeather.temp)+"°";
-    	document.getElementById('threeHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = Math.round(threeHourWeather.rain);
-        document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = ("0" + new Date(threeHourWeather.from).getHours()).slice(-2);
+    let hour_plus_two = moment(date).add(2, 'hour');
+    document.querySelector("#twoHourWeather .tempIcon").src = `img/weathericons/png/${forecast_in_two.symbol}.png`;
+    document.getElementById('twoHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(forecast_in_two.temperature)+"°";
+    document.getElementById('twoHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = forecast_in_two.precipitation;
+    document.getElementById('twoHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = (hour_plus_two.hour()).toString().padStart(2,0);
 
-        setWeatherIcon("#tomorrowWeather .morning.tempIcon", tomorrowAMWeather.symbol, tomorrowAMWeather.from);
-    	document.querySelector('#tomorrowWeather .morning.tempMin').innerHTML = Math.round(tomorrowAMWeather.tempMin)+"°";
-        document.querySelector('#tomorrowWeather .morning.tempMax').innerHTML = Math.round(tomorrowAMWeather.tempMax)+"°";
+    let hour_plus_three = moment(date).add(3, 'hour');
+    document.querySelector("#threeHourWeather .tempIcon").src = `img/weathericons/png/${forecast_in_three.symbol}.png`;
+    document.getElementById('threeHourWeather').getElementsByClassName('temp')[0].innerHTML = Math.round(forecast_in_three.temperature)+"°";
+    document.getElementById('threeHourWeather').getElementsByClassName('rain')[0].getElementsByClassName('value')[0].innerHTML = forecast_in_three.precipitation;
+    document.getElementById('threeHourWeather').getElementsByClassName('nextTime')[0].getElementsByClassName('value')[0].innerHTML = (hour_plus_three.hour()).toString().padStart(2,0);
 
-        setWeatherIcon("#tomorrowWeather .afternoon.tempIcon", tomorrowPMWeather.symbol, tomorrowPMWeather.from);
-        document.querySelector('#tomorrowWeather .afternoon.tempMin').innerHTML = Math.round(tomorrowPMWeather.tempMin)+"°";
-        document.querySelector('#tomorrowWeather .afternoon.tempMax').innerHTML = Math.round(tomorrowPMWeather.tempMax)+"°";
+    document.querySelector("#tomorrowWeather .morning.tempIcon").src = `img/weathericons/png/${forecast_next_morning.symbol}.png`;
+    document.querySelector('#tomorrowWeather .morning.tempMin').innerHTML = Math.round(forecast_next_morning.min_temperature)+"°";
+    document.querySelector('#tomorrowWeather .morning.tempMax').innerHTML = Math.round(forecast_next_morning.max_temperature)+"°";
 
-      } else {
-        console.log('error');
-      }
-    };
+    document.querySelector("#tomorrowWeather .afternoon.tempIcon").src = `img/weathericons/png/${forecast_next_afternoon.symbol}.png`;
+    document.querySelector('#tomorrowWeather .afternoon.tempMin').innerHTML = Math.round(forecast_next_afternoon.min_temperature)+"°";
+    document.querySelector('#tomorrowWeather .afternoon.tempMax').innerHTML = Math.round(forecast_next_afternoon.max_temperature)+"°";
 
-    return request.send();
+}
+
+async function refreshWeather() {
+
+    var forecast = await getNorwegianMETAPIJson();
+
+    // Get the right index when there is a leftover
+    let current_forecast_index = findCurrentIndex(forecast)
+
+    forecast_now.update(forecast[current_forecast_index])
+    forecast_in_one.update(forecast[current_forecast_index+1])
+    forecast_in_two.update(forecast[current_forecast_index+2])
+    forecast_in_three.update(forecast[current_forecast_index+3])
+
+    let next_morning_index = findNextMorningIndex(forecast)
+    let next_afternoon_index = findNextAfternoonIndex(forecast)
+
+    forecast_next_morning.update(forecast[next_morning_index])
+    forecast_next_afternoon.update(forecast[next_afternoon_index])
+
+    refreshWeatherUI()
 }
 
 //### Google Slide
@@ -457,7 +304,7 @@ function loadSlide() {
 
 //### Appeler les différents éléments de la page.
 getDateTime();
-refreshMeteo();
+refreshWeather();
 loadSlide();
 setInterval("loadSlide()", 300000); // refresh toutes les 5 minutes
 </script>
